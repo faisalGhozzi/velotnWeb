@@ -70,4 +70,12 @@ class DefaultController extends Controller
     public  function registerAction(){
         return $this->render('@Velotn/Front/register.html.twig');
     }
+
+    /**
+     * @Route("/cart",name="cart")
+     */
+
+    public function shoppingcartAction(){
+        return $this->render('@Velotn/Front/shopping-cart.html.twig');
+    }
 }
