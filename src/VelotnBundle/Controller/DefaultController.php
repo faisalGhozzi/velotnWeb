@@ -86,4 +86,12 @@ class DefaultController extends Controller
     public function checkoutAction(){
         return $this->render('@Velotn/Front/checkout.html.twig');
     }
+
+    /**
+     * @Route("/event/oh",name="eventinfo")
+     */
+
+    public function eventinfoAction(){
+        return $this->render('@Velotn/Front/event-details.html.twig');
+    }
 }
