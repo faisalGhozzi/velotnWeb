@@ -54,4 +54,12 @@ class DefaultController extends Controller
     public function eventsAction(){
         return $this->render('@Velotn/Front/events.html.twig');
     }
+
+    /**
+     * @Route("/contact",name="contact")
+     */
+
+    public function contactAction(){
+        return $this->render('@Velotn/Front/contact.html.twig');
+    }
 }
