@@ -78,4 +78,12 @@ class DefaultController extends Controller
     public function shoppingcartAction(){
         return $this->render('@Velotn/Front/shopping-cart.html.twig');
     }
+
+    /**
+     * @Route("/checkout",name="checkout")
+     */
+
+    public function checkoutAction(){
+        return $this->render('@Velotn/Front/checkout.html.twig');
+    }
 }
