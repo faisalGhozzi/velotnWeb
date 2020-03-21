@@ -64,14 +64,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/register",name="register")
-     */
-
-    public  function registerAction(){
-        return $this->render('@Velotn/Front/register.html.twig');
-    }
-
-    /**
      * @Route("/cart",name="cart")
      */
 
