@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class DefaultController extends Controller
 {
 
-    /*public function indexAction()
+    public function indexAction()
     {
         return $this->render('@Velotn/Back/index.html.twig');
     }
@@ -19,13 +19,14 @@ class DefaultController extends Controller
         return $this->render('@Velotn/Back/login.html.twig');
     }
 
-
     public function loginFrontAction()
     {
         return $this->render('@Velotn/Front/login.html.twig');
     }
 
-
+    /**
+     * @Route("/",name="index")
+     */
     public function indexFrontAction()
     {
         return $this->render('@Velotn/Front/index.html.twig');
@@ -61,5 +62,5 @@ class DefaultController extends Controller
 
     public function eventinfoAction(){
         return $this->render('@Velotn/Front/event-details.html.twig');
-    }*/
+    }
 }
