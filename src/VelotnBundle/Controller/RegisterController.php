@@ -11,12 +11,7 @@ use VelotnBundle\Form\UserType;
 
 class RegisterController extends Controller
 {
-    /**
-     * @Route("/register",name="register")
-     * @param Request $request
-     * @return Response
-     */
-    public function registerAction(Request $request)
+    /*public function registerAction(Request $request)
     {
         $user = new FosUser();
 
@@ -30,6 +25,6 @@ class RegisterController extends Controller
         return $this->render('@Velotn/Front/register.html.twig', array(
             'form' => $form->createView()
         ));
-    }
+    }*/
 
 }
