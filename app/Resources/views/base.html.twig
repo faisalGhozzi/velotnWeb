@@ -14,7 +14,7 @@
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css">
-    <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" type="text/css">
+    <!--link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}" type="text/css"-->
     <link rel="stylesheet" href="{{ asset('css/themify-icons.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/elegant-icons.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}" type="text/css">
@@ -51,7 +51,10 @@
                             {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                         </a>
                     {% else %}
-                    <a href="{{ path('fos_user_security_login') }}" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                    <a href="{{ path('fos_user_security_login') }}" class="login-panel">
+                        <i class="fa fa-user"></i>
+                        Login
+                    </a>
                     {% endif %}
                     <div class="lan-selector">
                         <select class="language_drop" name="countries" id="countries" style="width:300px;">
@@ -92,8 +95,11 @@
                     <div class="col-lg-3 text-right col-md-3">
                         <ul class="nav-right">
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li class="heart-icon">
+                                <a href="{{ path('fos_user_profile_show') }}" ><i class="far fa-user"></i></a>
+                            </li>
                             <li class="heart-icon"><a href="#">
-                                    <i class="icon_heart_alt"></i>
+                                    <i class="far fa-heart"></i>
                                     <span>1</span>
                                 </a>
                             </li>
@@ -306,6 +312,7 @@
     </footer>
     <!-- Footer Section End -->
         {% block javascripts %}{% endblock %}
+        <script src="https://kit.fontawesome.com/f479006308.js" crossorigin="anonymous"></script>
         <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
