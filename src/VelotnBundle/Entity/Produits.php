@@ -19,42 +19,42 @@ class Produits
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="nomProd", type="string", length=30, nullable=false)
      */
-    private $nomprod;
+    protected $nomprod;
 
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="text", length=65535, nullable=false)
      */
-    private $description;
+    protected $description;
 
     /**
      * @var float
      *
      * @ORM\Column(name="prix", type="float", precision=10, scale=0, nullable=false)
      */
-    private $prix;
+    protected $prix;
 
     /**
      * @var integer
      *
      * @ORM\Column(name="quantite", type="integer", nullable=false)
      */
-    private $quantite;
+    protected $quantite;
 
     /**
      * @var string
      *
      * @ORM\Column(name="img_url", type="text", length=65535, nullable=false)
      */
-    private $imgUrl;
+    protected $imgUrl;
 
     /**
      * @return int
