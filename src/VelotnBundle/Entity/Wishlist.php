@@ -34,7 +34,7 @@ class Wishlist
     /**
      * @var \FosUser
      *
-     * @ORM\ManyToOne(targetEntity="VelotnBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="FosUser")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })

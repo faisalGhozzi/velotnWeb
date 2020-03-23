@@ -57,7 +57,7 @@ class Location
     /**
      * @var \FosUser
      *
-     * @ORM\ManyToOne(targetEntity="VelotnBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="FosUser")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
      * })
