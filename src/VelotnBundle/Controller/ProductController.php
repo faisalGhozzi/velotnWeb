@@ -22,12 +22,22 @@ class ProductController extends Controller
         array_push($products,$velos,$pieces,$accessoires);
         dump($products);*/
         $em = $this->getDoctrine()->getManager();
-        $queryV = $em->createQuery("SELECT v, p FROM VelotnBundle:Velos v JOIN v.id p");
-        $res = $queryV->getResult();
-        dump($res);
+        // REMOVE THIS ! $queryV = $em->createQuery("SELECT v, p FROM VelotnBundle:Velos v JOIN v.id p");
+
+
+        $all = $em->getRepository('VelotnBundle:Produits')->findAllProducts();
+        $velos = $em->getRepository('VelotnBundle:Produits')->findAllVelos();
+        $accessoires = $em->getRepository('VelotnBundle:Produits')->findAllAccessoires();
+        $piecesrechanges = $em->getRepository('VelotnBundle:Produits')->findAllPieceRechanges();
+        $productsLocation = $em->getRepository('VelotnBundle:Produits')->findAllProductsLocation();
+
+        $products = array();
+        array_push($products,$velos,$accessoires,$piecesrechanges,$productsLocation);
+
+
 
         return $this->render('@Velotn/Front/shop.html.twig', array(
-            'products' => $res
+            'products' => $all
         ));
     }
 
