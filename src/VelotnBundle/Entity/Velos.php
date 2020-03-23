@@ -1,6 +1,6 @@
 <?php
 
-namespace Velotn\Entity;
+namespace VelotnBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

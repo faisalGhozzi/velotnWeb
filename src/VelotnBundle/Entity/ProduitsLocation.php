@@ -5,12 +5,12 @@ namespace VelotnBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Accessoires
+ * Velos
  *
- * @ORM\Table(name="accessoires")
+ * @ORM\Table(name="produits_location")
  * @ORM\Entity
  */
-class Accessoires
+class ProduitsLocation
 {
     /**
      * @var string
