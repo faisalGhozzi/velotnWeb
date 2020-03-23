@@ -38,7 +38,7 @@ class Reclamation
     /**
      * @var \FosUser
      *
-     * @ORM\ManyToOne(targetEntity="FosUser")
+     * @ORM\ManyToOne(targetEntity="VelotnBundle\Entity\User")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idUser", referencedColumnName="id")
      * })

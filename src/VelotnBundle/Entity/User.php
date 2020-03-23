@@ -18,6 +18,30 @@ class User extends BaseUser
      */
     protected $id;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="addresse", type="string", length=30, nullable=false)
+     */
+    private $addresse;
+
+    /**
+     * @return string
+     */
+    public function getAddresse()
+    {
+        return $this->addresse;
+    }
+
+    /**
+     * @param string $addresse
+     */
+    public function setAddresse($addresse)
+    {
+        $this->addresse = $addresse;
+    }
+
     public function __construct()
     {
         parent::__construct();
