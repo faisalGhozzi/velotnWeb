@@ -56,6 +56,102 @@ class Produits
      */
     private $imgUrl;
 
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNomprod()
+    {
+        return $this->nomprod;
+    }
+
+    /**
+     * @param string $nomprod
+     */
+    public function setNomprod($nomprod)
+    {
+        $this->nomprod = $nomprod;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrix()
+    {
+        return $this->prix;
+    }
+
+    /**
+     * @param float $prix
+     */
+    public function setPrix($prix)
+    {
+        $this->prix = $prix;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuantite()
+    {
+        return $this->quantite;
+    }
+
+    /**
+     * @param int $quantite
+     */
+    public function setQuantite($quantite)
+    {
+        $this->quantite = $quantite;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImgUrl()
+    {
+        return $this->imgUrl;
+    }
+
+    /**
+     * @param string $imgUrl
+     */
+    public function setImgUrl($imgUrl)
+    {
+        $this->imgUrl = $imgUrl;
+    }
+
 
 }
 
