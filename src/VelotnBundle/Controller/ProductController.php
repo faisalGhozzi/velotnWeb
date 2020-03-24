@@ -23,10 +23,10 @@ class ProductController extends Controller
         $velos = $em->getRepository('VelotnBundle:Velos')->findAllVelos();
         $accessoires = $em->getRepository('VelotnBundle:Accessoires')->findAllAccessoires();
         $piecesrechanges = $em->getRepository('VelotnBundle:Piecesrechanges')->findAllPieceRechanges();
-        //$productsLocation = $em->getRepository('VelotnBundle:Produits')->findAllProductsLocation();
+        //$productsLocation = $em->getRepository('VelotnBundle:ProduitsLocation')->findAllProductsLocation();
         $products = array();
         array_push($products,$velos,$accessoires,$piecesrechanges);
-        dump($products);
+        //dump($products[0]);
 
 
         return $this->render('@Velotn/Front/shop.html.twig', array(
@@ -40,7 +40,7 @@ class ProductController extends Controller
     public function showrentAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $productsLocation = $em->getRepository('VelotnBundle:Produits')->findAllProductsLocation();
+        $productsLocation = $em->getRepository('VelotnBundle:ProduitsLocation')->findAllProductsLocation();
         $products = array();
         array_push($products,$productsLocation);
         return $this->render('@Velotn/Front/rent.html.twig', array(

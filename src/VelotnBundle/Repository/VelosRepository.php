@@ -1,5 +1,6 @@
 <?php
 namespace VelotnBundle\Repository;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityRepository;
 
 class VelosRepository extends EntityRepository
@@ -12,7 +13,8 @@ class VelosRepository extends EntityRepository
             ->from("VelotnBundle:Velos","velo")
             ->innerJoin("velo.id","v")
             ->getQuery()
-            ->execute();
+            ->getResult(AbstractQuery::HYDRATE_OBJECT);
+
 
     }
 
