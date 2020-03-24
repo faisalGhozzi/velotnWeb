@@ -27,6 +27,7 @@ class ProductRepository extends EntityRepository{
         return $this->createQueryBuilder("product")
             ->select()
             ->from("VelotnBundle:Velos","v")
+            ->innerJoin("v.id","v")
             ->getQuery()
             ->execute();
 
@@ -37,6 +38,7 @@ class ProductRepository extends EntityRepository{
         return $this->createQueryBuilder("product")
             ->select()
             ->from("VelotnBundle:Accessoires","a")
+            ->innerJoin("a.id","a")
             ->getQuery()
             ->execute();
 
@@ -47,6 +49,7 @@ class ProductRepository extends EntityRepository{
         return $this->createQueryBuilder("product")
             ->select()
             ->from("VelotnBundle:Piecesrechanges","pr")
+            ->innerJoin("pr.id","pr")
             ->getQuery()
             ->execute();
 
@@ -57,6 +60,7 @@ class ProductRepository extends EntityRepository{
         return $this->createQueryBuilder("product")
             ->select()
             ->from("VelotnBundle:ProduitsLocation","pl")
+            ->innerJoin("pl.id","pl")
             ->getQuery()
             ->execute();
 
