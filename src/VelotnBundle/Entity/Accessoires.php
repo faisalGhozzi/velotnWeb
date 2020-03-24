@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="accessoires")
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="VelotnBundle\Repository\AccessoiresRepository")
  */
 class Accessoires
 {

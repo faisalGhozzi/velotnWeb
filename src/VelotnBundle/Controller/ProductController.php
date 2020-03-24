@@ -20,13 +20,13 @@ class ProductController extends Controller
 
 
         $all = $em->getRepository('VelotnBundle:Produits')->findAllProducts();
-        $velos = $em->getRepository('VelotnBundle:Produits')->findAllVelos();
-        $accessoires = $em->getRepository('VelotnBundle:Produits')->findAllAccessoires();
-        $piecesrechanges = $em->getRepository('VelotnBundle:Produits')->findAllPieceRechanges();
+        $velos = $em->getRepository('VelotnBundle:Velos')->findAllVelos();
+        $accessoires = $em->getRepository('VelotnBundle:Accessoires')->findAllAccessoires();
+        $piecesrechanges = $em->getRepository('VelotnBundle:Piecesrechanges')->findAllPieceRechanges();
         //$productsLocation = $em->getRepository('VelotnBundle:Produits')->findAllProductsLocation();
         $products = array();
         array_push($products,$velos,$accessoires,$piecesrechanges);
-        //dump($all);
+        dump($products);
 
 
         return $this->render('@Velotn/Front/shop.html.twig', array(

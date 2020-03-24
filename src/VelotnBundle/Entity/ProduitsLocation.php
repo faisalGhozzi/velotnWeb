@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="produits_location")
  * @ORM\Entity
+ * @ORM\Entity(repositoryClass="VelotnBundle\Repository\ProduitsLocationRepository")
  */
 class ProduitsLocation
 {
