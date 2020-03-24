@@ -15,12 +15,6 @@ class ProductController extends Controller
      */
     public function showAction()
     {
-        /*$velos = $this->getDoctrine()->getRepository('VelotnBundle:Velos')->findAll();
-        $pieces = $this->getDoctrine()->getRepository('VelotnBundle:Piecesrechanges')->findAll();
-        $accessoires = $this->getDoctrine()->getRepository('VelotnBundle:Accessoires')->findAll();
-        $products = array();
-        array_push($products,$velos,$pieces,$accessoires);
-        dump($products);*/
         $em = $this->getDoctrine()->getManager();
         // REMOVE THIS ! $queryV = $em->createQuery("SELECT v, p FROM VelotnBundle:Velos v JOIN v.id p");
 
@@ -29,15 +23,15 @@ class ProductController extends Controller
         $velos = $em->getRepository('VelotnBundle:Produits')->findAllVelos();
         $accessoires = $em->getRepository('VelotnBundle:Produits')->findAllAccessoires();
         $piecesrechanges = $em->getRepository('VelotnBundle:Produits')->findAllPieceRechanges();
-        $productsLocation = $em->getRepository('VelotnBundle:Produits')->findAllProductsLocation();
+        //$productsLocation = $em->getRepository('VelotnBundle:Produits')->findAllProductsLocation();
 
         $products = array();
-        array_push($products,$velos,$accessoires,$piecesrechanges,$productsLocation);
-
+        array_push($products,$velos,$accessoires,$piecesrechanges);
+        //dump($all);
 
 
         return $this->render('@Velotn/Front/shop.html.twig', array(
-            'products' => $all
+            'products' => $products
         ));
     }
 
