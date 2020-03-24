@@ -24,7 +24,6 @@ class ProductController extends Controller
         $accessoires = $em->getRepository('VelotnBundle:Produits')->findAllAccessoires();
         $piecesrechanges = $em->getRepository('VelotnBundle:Produits')->findAllPieceRechanges();
         //$productsLocation = $em->getRepository('VelotnBundle:Produits')->findAllProductsLocation();
-
         $products = array();
         array_push($products,$velos,$accessoires,$piecesrechanges);
         //dump($all);
@@ -35,4 +34,15 @@ class ProductController extends Controller
         ));
     }
 
+    /**
+     * @Route("/rent",name="rent")
+     */
+    public function showrentAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $productsLocation = $em->getRepository('VelotnBundle:Produits')->findAllProductsLocation();
+        return $this->render('@Velotn/Front/rent.html.twig', array(
+            'products' => $productsLocation
+        ));
+    }
 }
