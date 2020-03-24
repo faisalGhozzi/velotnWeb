@@ -27,6 +27,54 @@ class ProduitsLocation
     private $type;
 
     /**
+     * @return string
+     */
+    public function getMarque()
+    {
+        return $this->marque;
+    }
+
+    /**
+     * @param string $marque
+     */
+    public function setMarque($marque)
+    {
+        $this->marque = $marque;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return \Produits
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param \Produits $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @var \Produits
      *
      * @ORM\Id

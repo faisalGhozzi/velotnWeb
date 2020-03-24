@@ -41,8 +41,10 @@ class ProductController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $productsLocation = $em->getRepository('VelotnBundle:Produits')->findAllProductsLocation();
+        $products = array();
+        array_push($products,$productsLocation);
         return $this->render('@Velotn/Front/rent.html.twig', array(
-            'products' => $productsLocation
+            'products' => $products
         ));
     }
 }
