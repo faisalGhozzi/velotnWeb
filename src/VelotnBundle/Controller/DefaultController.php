@@ -32,6 +32,15 @@ class DefaultController extends Controller
         return $this->render('@Velotn/Front/index.html.twig');
     }
 
+
+    /**
+     * @Route("/admin",name="admin")
+     */
+    public function indexBackAction()
+    {
+        return $this->render('@Velotn/Back/index.html.twig');
+    }
+
     /*public function shopAction(){
         return $this->render('@Velotn/Front/shop.html.twig');
     }*/
