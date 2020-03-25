@@ -5,6 +5,8 @@ namespace VelotnBundle\Controller;
 use Doctrine\ORM\Query\Expr\Select;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use VelotnBundle\Entity\ProduitsLocation;
 use VelotnBundle\Entity\Velos;
 
@@ -23,11 +25,8 @@ class ProductController extends Controller
         $velos = $em->getRepository('VelotnBundle:Velos')->findAllVelos();
         $accessoires = $em->getRepository('VelotnBundle:Accessoires')->findAllAccessoires();
         $piecesrechanges = $em->getRepository('VelotnBundle:Piecesrechanges')->findAllPieceRechanges();
-        //$productsLocation = $em->getRepository('VelotnBundle:ProduitsLocation')->findAllProductsLocation();
         $products = array();
         array_push($products,$velos,$accessoires,$piecesrechanges);
-        //dump($products[0]);
-
 
         return $this->render('@Velotn/Front/shop.html.twig', array(
             'products' => $products
