@@ -47,4 +47,20 @@ class ProductController extends Controller
             'products' => $products
         ));
     }
+
+    /**
+     * @Route("/product/{prod}",name="viewprod")
+     */
+    public function viewprodAction($prod){
+        $em = $this->getDoctrine()->getManager();
+        $produit = $em->getRepository("VelotnBundle:Velos")->find($prod);
+        if($produit == null)
+            $produit = $em->getRepository("VelotnBundle:Piecesrechanges")->find($prod);
+        if($produit == null)
+            $produit = $em->getRepository("VelotnBundle:Accessoires")->find($prod);
+
+        return $this->render('@Velotn/Front/buyproduct.html.twig',array(
+            'produit' => $produit
+        ));
+    }
 }
