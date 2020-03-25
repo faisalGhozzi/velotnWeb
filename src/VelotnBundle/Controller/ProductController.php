@@ -52,12 +52,13 @@ class ProductController extends Controller
      * @Route("/product/{prod}",name="viewprod")
      */
     public function viewprodAction($prod){
+        $myId = $this->get('nzo_url_encryptor')->decrypt($prod);
         $em = $this->getDoctrine()->getManager();
-        $produit = $em->getRepository("VelotnBundle:Velos")->find($prod);
+        $produit = $em->getRepository("VelotnBundle:Velos")->find($myId);
         if($produit == null)
-            $produit = $em->getRepository("VelotnBundle:Piecesrechanges")->find($prod);
+            $produit = $em->getRepository("VelotnBundle:Piecesrechanges")->find($myId);
         if($produit == null)
-            $produit = $em->getRepository("VelotnBundle:Accessoires")->find($prod);
+            $produit = $em->getRepository("VelotnBundle:Accessoires")->find($myId);
 
         return $this->render('@Velotn/Front/buyproduct.html.twig',array(
             'produit' => $produit

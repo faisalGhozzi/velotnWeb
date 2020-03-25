@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "365237393fb693ff4fdb939a62a39f0f",
+    "content-hash": "00dffaea78e5cc8116141af6621375bc",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1155,6 +1155,60 @@
                 "psr-3"
             ],
             "time": "2019-12-20T14:15:16+00:00"
+        },
+        {
+            "name": "nzo/url-encryptor-bundle",
+            "version": "v4.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nayzo/NzoUrlEncryptorBundle.git",
+                "reference": "540889b51bf1749b28d0272ae39384f01c89790e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nayzo/NzoUrlEncryptorBundle/zipball/540889b51bf1749b28d0272ae39384f01c89790e",
+                "reference": "540889b51bf1749b28d0272ae39384f01c89790e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-openssl": "*",
+                "php": ">=5.3.9",
+                "symfony/framework-bundle": "^2.8 || ^3.0 || ^4.0",
+                "twig/twig": "^1.34 || ^2.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8 || ^5.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Nzo\\UrlEncryptorBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ala Eddine Khefifi",
+                    "email": "alakhefifi@gmail.com"
+                }
+            ],
+            "description": "The NzoUrlEncryptorBundle is a Symfony Bundle used to Encrypt and Decrypt data and variables in the Web application or passed through URL",
+            "keywords": [
+                "data",
+                "decrypt",
+                "decryption",
+                "encrypt",
+                "encryption",
+                "id",
+                "link",
+                "security",
+                "url",
+                "variable"
+            ],
+            "time": "2019-11-25T11:27:48+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -2340,20 +2394,6 @@
             "homepage": "https://symfony.com",
             "keywords": [
                 "framework"
-            ],
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
             ],
             "time": "2020-02-29T10:21:57+00:00"
         },

@@ -18,7 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
 
             new FOS\UserBundle\FOSUserBundle(),
-
+            new Nzo\UrlEncryptorBundle\NzoUrlEncryptorBundle(),
             new AppBundle\AppBundle(),
             new VelotnBundle\VelotnBundle(),
         ];

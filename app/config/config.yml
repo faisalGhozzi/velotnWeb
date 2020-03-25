@@ -80,3 +80,8 @@ fos_user:
     from_email:
         address: "testtest@test.com"
         sender_name: "TestApp"
+
+nzo_url_encryptor:
+    secret_key: YourSecretEncryptionKey    # optional, max length of 100 characters.
+    secret_iv:  YourIvEncryptionKey        # optional, max length of 100 characters.
+    cipher_algorithm:                      # optional, default: 'aes-256-ctr'
