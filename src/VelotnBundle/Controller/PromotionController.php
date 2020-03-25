@@ -13,7 +13,7 @@ use VelotnBundle\Form\PromotionType;
 class PromotionController extends Controller
 {
     /**
-     * @Route("/Promotion",name="promotion")
+     * @Route("/admin/Promotion",name="promotion")
      */
     public function PromotionAction()
     {
@@ -26,7 +26,7 @@ class PromotionController extends Controller
 
     /**
      * @param $id
-     * @Route("/Promotion/Supprimer/{id}",name="Supprimer")
+     * @Route("/admin/Promotion/Supprimer/{id}",name="Supprimer")
      * @return RedirectResponse
      */
     public function SupprimerPromoAction($id)
@@ -41,7 +41,7 @@ class PromotionController extends Controller
 
 
     /**
-     * @Route("/AjouterPromo",name="AjouterPromo")
+     * @Route("/admin/AjouterPromo",name="AjouterPromo")
      * @param Request $request
      * @return RedirectResponse|Response
      */
@@ -71,7 +71,7 @@ class PromotionController extends Controller
      * @param Request $request
      * @param $id
      * @return Response
-     * @Route("/Promotion/Modifer/{id}",name="Modifier")
+     * @Route("/admin/Promotion/Modifer/{id}",name="Modifier")
      */
     public function ModifierPromoAction(Request $request,$id)
     {

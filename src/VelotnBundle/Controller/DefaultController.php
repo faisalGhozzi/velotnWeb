@@ -4,6 +4,7 @@ namespace VelotnBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -14,11 +15,19 @@ class DefaultController extends Controller
     }
 
 
+    /**
+     * @return Response
+     * @Route("/admin/login",name="adminlogin")
+     */
     public function loginAction()
     {
         return $this->render('@Velotn/Back/login.html.twig');
     }
 
+    /**
+     * @return Response
+     * @Route("/login",name="login")
+     */
     public function loginFrontAction()
     {
         return $this->render('@Velotn/Front/login.html.twig');
