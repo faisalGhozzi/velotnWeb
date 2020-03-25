@@ -11,7 +11,19 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
+
+        admin:
+            pattern: ^/admin
+            anonymous: ~
+            provider: fos_userbundle
+            form_login:
+                login_path: /admin/login
+                check_path: /admin/login_check
+        admin_login:
+            pattern: ^/admin/login
+            anonymous: true
+
+
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -29,4 +41,6 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        #- { path: ^/admin/login, role: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/admin, role: IS_AUTHENTICATED_ANONYMOUSLY}
+        #- { path: ^/admin, role: ROLE_ADMIN }
