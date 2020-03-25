@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Promotion
  *
- * @ORM\Table(name="promotion", indexes={@ORM\Index(name="id_produitsFK", columns={"id_produits"})})
+ * @ORM\Table(name="promotion")
  * @ORM\Entity
  */
 class Promotion
@@ -36,14 +36,53 @@ class Promotion
     private $taux;
 
     /**
-     * @var \Produits
-     *
-     * @ORM\ManyToOne(targetEntity="Produits")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_produits", referencedColumnName="id")
-     * })
+     * @return int
      */
-    private $idProduits;
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTaux()
+    {
+        return $this->taux;
+    }
+
+    /**
+     * @param float $taux
+     */
+    public function setTaux($taux)
+    {
+        $this->taux = $taux;
+    }
+
 
 
 }

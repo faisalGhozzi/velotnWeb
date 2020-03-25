@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Location
  *
- * @ORM\Table(name="location", indexes={@ORM\Index(name="id_produitFK", columns={"id_produit"}), @ORM\Index(name="id_userFk", columns={"id_user"})})
+ * @ORM\Table(name="location", indexes={@ORM\Index(name="id_produitFK", columns={"id_produit"}), @ORM\Index(name="id_userFk", columns={"id_user"}),@ORM\Index(name="id_PromoFk", columns={"id_promo"})})
  * @ORM\Entity
  */
 class Location
@@ -63,6 +63,15 @@ class Location
      * })
      */
     private $idUser;
+
+    /**
+     * @var \Promotion
+     * @ORM\OneToOne(targetEntity="VelotnBundle\Entity\Promotion")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_promo",referencedColumnName="id")
+     * })
+     */
+    private $idPromo;
 
 
 }
