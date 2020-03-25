@@ -64,4 +64,17 @@ class ProductController extends Controller
             'produit' => $produit
         ));
     }
+
+    /**
+     * @Route("/productrent/{prod}",name="viewprodrent")
+     */
+    public function viewprodrentAction($prod){
+        $myId = $this->get('nzo_url_encryptor')->decrypt($prod);
+        $em = $this->getDoctrine()->getManager();
+        $produit = $em->getRepository("VelotnBundle:ProduitsLocation")->find($myId);
+
+        return $this->render('@Velotn/Front/rentproduct.html.twig',array(
+            'produit' => $produit
+        ));
+    }
 }
