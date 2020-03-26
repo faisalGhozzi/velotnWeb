@@ -43,24 +43,112 @@ class Panier
     private $prixTotal;
 
     /**
-     * @var \Produits
-     *
-     * @ORM\ManyToOne(targetEntity="Produits")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="produit_id", referencedColumnName="id")
-     * })
+     * @var integer
+     * @ORM\Column(name="produit_id", type="integer",nullable=false)
      */
     private $produit;
 
     /**
-     * @var \Produits
-     *
-     * @ORM\ManyToOne(targetEntity="Produits")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * })
+     * @var integer
+     * @ORM\Column(name="user_id", type="integer",nullable=false)
      */
     private $user;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQte()
+    {
+        return $this->qte;
+    }
+
+    /**
+     * @param int $qte
+     */
+    public function setQte($qte)
+    {
+        $this->qte = $qte;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrixUnitaire()
+    {
+        return $this->prixUnitaire;
+    }
+
+    /**
+     * @param string $prixUnitaire
+     */
+    public function setPrixUnitaire($prixUnitaire)
+    {
+        $this->prixUnitaire = $prixUnitaire;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrixTotal()
+    {
+        return $this->prixTotal;
+    }
+
+    /**
+     * @param string $prixTotal
+     */
+    public function setPrixTotal($prixTotal)
+    {
+        $this->prixTotal = $prixTotal;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getProduit()
+    {
+        return $this->produit;
+    }
+
+    /**
+     * @param integer $produit
+     */
+    public function setProduit($produit)
+    {
+        $this->produit = $produit;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param integer $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
 
 
 }
