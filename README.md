@@ -1,11 +1,12 @@
 In order for this project to work properly.
 ===========================================
-Before pulling, please install the following external bundles:
-
-FOSBundle :
-  composer require friendsofsymfony/user-bundle
-NzoUrlEncryptorBundle:
-  composer require nzo/url-encryptor-bundle
+Before pulling.<br/> 
+Please install the following external bundles:<br/>
+<br/>
+FOSBundle :<br/>
+&nbps;&nbps;composer require friendsofsymfony/user-bundle<br/>
+NzoUrlEncryptorBundle:<br/>
+&nbps;&nbps;composer require nzo/url-encryptor-bundle<br/>
 
 Symfony Standard Edition
 ========================
