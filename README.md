@@ -1,3 +1,13 @@
+In order for this project to work properly.
+===========================================
+Before pulling.<br/> 
+Please install the following external bundles:<br/>
+<br/>
+FOSBundle :<br/>
+&nbsp;&nbsp;composer require friendsofsymfony/user-bundle<br/>
+NzoUrlEncryptorBundle:<br/>
+&nbsp;&nbsp;composer require nzo/url-encryptor-bundle<br/>
+
 Symfony Standard Edition
 ========================
 
