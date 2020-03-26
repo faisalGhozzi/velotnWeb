@@ -273,14 +273,156 @@
         <!-- main content start -->
         <div id="page-wrapper">
             <div class="main-page">
-            {{ form_start(form, {'attr': {'class': 'form-body'}}) }}
-               {{ form_label(form.type,'Code Promo: ') }}
-                {{ form_widget(form.type,{'attr': {'class': 'form-control','placeholder':'Code Promo'}}) }}<br>
 
-                {{ form_label(form.taux,'Taux: ') }}
-                {{ form_widget(form.taux,{'attr': {'class': 'form-control','placeholder':'Taux'}}) }}<br>
-                <center>{{ form_widget(form.Ajouter,{'attr': {'class': 'btn btn-primary'}}) }}</center>
-                {{ form_end(form) }}
+                <div class="table-responsive bs-example widget-shadow">
+                        <caption>Liste des Velos</caption>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+
+                                <th>Nom Produit</th>
+                                <th>Description</th>
+                                <th>Prix</th>
+                                <th>Quantite</th>
+                                <th>Image</th>
+                                <th>Marque</th>
+                                <th>Type</th>
+                                <th>Modifier</th>
+                                <th>Supprimer</th>
+                            </tr>
+
+                            </thead>
+                            <tbody>
+
+                            {% for product in velos %}
+                            <tr>
+                                <td>{{ product.id.nomprod }}</td>
+                                <td>{{ product.id.description }}</td>
+                                <td>{{ product.id.prix }}</td>
+                                <td>{{ product.id.quantite }}</td>
+                                <td><img src="{{ asset(product.id.imgUrl) }}" style="width: 100px;height: 100px;"/></td>
+                                <td>{{ product.marque }}</td>
+                                <td>{{ product.type }}</td>
+                                <td><a href="" class="btn btn-info">Modifier</a></td>
+                                <td><a href="{{ path('supprimerVelo',{'id': product.id.id}) }}" class="btn btn-danger">Supprimer</a></td>
+                            </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                </div>
+
+                <div class="table-responsive bs-example widget-shadow">
+                    <caption>Liste des Velos a Louer</caption>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+
+                            <th>Nom Produit</th>
+                            <th>Description</th>
+                            <th>Prix</th>
+                            <th>Quantite</th>
+                            <th>Image</th>
+                            <th>Marque</th>
+                            <th>Type</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        {% for product in location %}
+                            <tr>
+                                <td>{{ product.id.nomprod }}</td>
+                                <td>{{ product.id.description }}</td>
+                                <td>{{ product.id.prix }}</td>
+                                <td>{{ product.id.quantite }}</td>
+                                <td><img src="{{ asset(product.id.imgUrl) }}" style="width: 100px;height: 100px;"/></td>
+                                <td>{{ product.marque }}</td>
+                                <td>{{ product.type }}</td>
+                                <td><a href="#" class="btn btn-info">Modifier</a></td>
+                                <td><a href="{{ path('supprimerVelol',{'id': product.id.id}) }}" class="btn btn-danger">Supprimer</a></td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-responsive bs-example widget-shadow">
+                    <caption>Liste des Accessoires</caption>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+
+                            <th>Nom Produit</th>
+                            <th>Description</th>
+                            <th>Prix</th>
+                            <th>Quantite</th>
+                            <th>Image</th>
+                            <th>Marque</th>
+                            <th>Type</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        {% for product in accessoires %}
+                            <tr>
+                                <td>{{ product.id.nomprod }}</td>
+                                <td>{{ product.id.description }}</td>
+                                <td>{{ product.id.prix }}</td>
+                                <td>{{ product.id.quantite }}</td>
+                                <td><img src="{{ asset(product.id.imgUrl) }}" style="width: 100px;height: 100px;"/></td>
+                                <td>{{ product.marque }}</td>
+                                <td>{{ product.type }}</td>
+                                <td><a href="#" class="btn btn-info">Modifier</a></td>
+                                <td><a href="{{ path('supprimerAccessoire',{'id': product.id.id}) }}" class="btn btn-danger">Supprimer</a></td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-responsive bs-example widget-shadow">
+                    <caption>Liste des Pieces de Rechange</caption>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+
+                            <th>Nom Produit</th>
+                            <th>Description</th>
+                            <th>Prix</th>
+                            <th>Quantite</th>
+                            <th>Image</th>
+                            <th>Marque</th>
+                            <th>Type</th>
+                            <th>Modifier</th>
+                            <th>Supprimer</th>
+                        </tr>
+
+                        </thead>
+                        <tbody>
+                        {% for product in pieces %}
+                            <tr>
+                                <td>{{ product.id.nomprod }}</td>
+                                <td>{{ product.id.description }}</td>
+                                <td>{{ product.id.prix }}</td>
+                                <td>{{ product.id.quantite }}</td>
+                                <td><img src="{{ asset(product.id.imgUrl) }}" style="width: 100px;height: 100px;"/></td>
+                                <td>{{ product.marque }}</td>
+                                <td>{{ product.type }}</td>
+                                <td><a href="#" class="btn btn-info">Modifier</a></td>
+                                <td><a href="{{ path('supprimerPieceR', {'id':product.id.id }) }}" class="btn btn-danger">Supprimer</a></td>
+                            </tr>
+                        {% endfor %}
+                        
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
         <!--footer-->
@@ -291,8 +433,6 @@
     </div>
 
     <!-- new added graphs chart js-->
-
-
 
     <script>
         var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

@@ -3,9 +3,7 @@
 
 
 {% block body %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+
     <div class="main-content">
         <div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
             <!--left-fixed -navigation-->
@@ -41,6 +39,9 @@
                 <h2 class="title1"><i class="fas fa-bicycle"></i> Connexion Dashboard Velotn <i class="fas fa-biking"></i></h2>
                 <div class="widget-shadow">
                     <div class="login-body">
+                        {% if error %}
+                            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
                         <form action="{{ path("fos_user_security_admin_check") }}" method="post" class="form">
                             {% if csrf_token %}
                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
