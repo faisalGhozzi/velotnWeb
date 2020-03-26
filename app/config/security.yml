@@ -11,17 +11,32 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
-
         admin:
             pattern: ^/admin
+            user_checker: security.user_checker
             anonymous: ~
-            provider: fos_userbundle
             form_login:
-                login_path: /admin/login
-                check_path: /admin/login_check
+                provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
+                login_path: fos_user_security_admin_login
+                check_path: fos_user_security_admin_check
+                default_target_path: /admin
+            logout:
+                path: fos_user_security_admin_logout
+                target: fos_user_security_admin_login
+
         admin_login:
             pattern: ^/admin/login
             anonymous: true
+            form_login:
+                provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
+                login_path: fos_user_security_admin_login
+                check_path: fos_user_security_admin_check
+                default_target_path: /admin
+            logout:
+                path: fos_user_security_admin_logout
+                target: fos_user_security_admin_login
 
 
         dev:
@@ -38,9 +53,9 @@ security:
             anonymous:    true
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login, role: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        #- { path: ^/admin/login, role: IS_AUTHENTICATED_ANONYMOUSLY}
-        - { path: ^/admin, role: IS_AUTHENTICATED_ANONYMOUSLY}
-        #- { path: ^/admin, role: ROLE_ADMIN }
+        #- { path: ^/admin, role: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/admin$, role: ROLE_ADMIN }

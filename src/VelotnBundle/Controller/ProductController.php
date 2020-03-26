@@ -5,8 +5,6 @@ namespace VelotnBundle\Controller;
 use Doctrine\ORM\Query\Expr\Select;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use VelotnBundle\Entity\ProduitsLocation;
 use VelotnBundle\Entity\Velos;
 
@@ -25,8 +23,11 @@ class ProductController extends Controller
         $velos = $em->getRepository('VelotnBundle:Velos')->findAllVelos();
         $accessoires = $em->getRepository('VelotnBundle:Accessoires')->findAllAccessoires();
         $piecesrechanges = $em->getRepository('VelotnBundle:Piecesrechanges')->findAllPieceRechanges();
+        //$productsLocation = $em->getRepository('VelotnBundle:ProduitsLocation')->findAllProductsLocation();
         $products = array();
         array_push($products,$velos,$accessoires,$piecesrechanges);
+        //dump($products[0]);
+
 
         return $this->render('@Velotn/Front/shop.html.twig', array(
             'products' => $products
@@ -51,28 +52,14 @@ class ProductController extends Controller
      * @Route("/product/{prod}",name="viewprod")
      */
     public function viewprodAction($prod){
-        $myId = $this->get('nzo_url_encryptor')->decrypt($prod);
         $em = $this->getDoctrine()->getManager();
-        $produit = $em->getRepository("VelotnBundle:Velos")->find($myId);
+        $produit = $em->getRepository("VelotnBundle:Velos")->find($prod);
         if($produit == null)
-            $produit = $em->getRepository("VelotnBundle:Piecesrechanges")->find($myId);
+            $produit = $em->getRepository("VelotnBundle:Piecesrechanges")->find($prod);
         if($produit == null)
-            $produit = $em->getRepository("VelotnBundle:Accessoires")->find($myId);
+            $produit = $em->getRepository("VelotnBundle:Accessoires")->find($prod);
 
         return $this->render('@Velotn/Front/buyproduct.html.twig',array(
-            'produit' => $produit
-        ));
-    }
-
-    /**
-     * @Route("/productrent/{prod}",name="viewprodrent")
-     */
-    public function viewprodrentAction($prod){
-        $myId = $this->get('nzo_url_encryptor')->decrypt($prod);
-        $em = $this->getDoctrine()->getManager();
-        $produit = $em->getRepository("VelotnBundle:ProduitsLocation")->find($myId);
-
-        return $this->render('@Velotn/Front/rentproduct.html.twig',array(
             'produit' => $produit
         ));
     }

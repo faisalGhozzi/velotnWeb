@@ -8,6 +8,7 @@
         <default key="_controller">fos_user.security.controller:loginAction</default>
     </route>
 
+
     <route id="fos_user_security_check" path="/login_check" methods="POST">
         <default key="_controller">fos_user.security.controller:checkAction</default>
     </route>
@@ -15,5 +16,19 @@
     <route id="fos_user_security_logout" path="/logout" methods="GET POST">
         <default key="_controller">fos_user.security.controller:logoutAction</default>
     </route>
+
+
+    <route id="fos_user_security_admin_login" path="/admin/login/" methods="GET POST">
+        <default key="_controller">fos_user.security.controller:adminLoginAction</default>
+    </route>
+
+    <route id="fos_user_security_admin_check" path="/admin/login_check" methods="GET POST">
+        <default key="_controller">fos_user.security.controller:AdmincheckAction</default>
+    </route>
+
+    <route id="fos_user_security_admin_logout" path="/admin/logout" methods="GET POST">
+        <default key="_controller">fos_user.security.controller:AdminlogoutAction</default>
+    </route>
+
 
 </routes>

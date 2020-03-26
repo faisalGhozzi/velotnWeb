@@ -273,13 +273,43 @@
         <!-- main content start -->
         <div id="page-wrapper">
             <div class="main-page">
-            {{ form_start(form, {'attr': {'class': 'form-body'}}) }}
-               {{ form_label(form.type,'Code Promo: ') }}
-                {{ form_widget(form.type,{'attr': {'class': 'form-control','placeholder':'Code Promo'}}) }}<br>
+               {{ form_start(form, {'attr': {'class': 'form-body','style':'width:50%;'}}) }}
+                {#{{ form_label(form.typeProduit,'Type Produit :') }}
+                {{ form_widget(form.typeProduit) }}<br>#}
+                <label for="typeProduit">Type du Produit :</label>
+                <select id="typeProduit" name="typeProduit" class="form-control">
+                    <option value="Velo">Velo</option>
+                    <option value="PieceRechange">PieceRechange</option>
+                    <option value="Accessoire">Accessoire</option>
+                    <option value="Velo a Louer">Velo a Louer</option>
 
-                {{ form_label(form.taux,'Taux: ') }}
-                {{ form_widget(form.taux,{'attr': {'class': 'form-control','placeholder':'Taux'}}) }}<br>
-                <center>{{ form_widget(form.Ajouter,{'attr': {'class': 'btn btn-primary'}}) }}</center>
+                </select><br>
+
+                {{ form_label(form.nomprod,'Nom Produit :') }}
+                {{ form_widget(form.nomprod) }}<br>
+
+                {{ form_label(form.description,'Description :') }}
+                {{ form_widget(form.description) }}<br>
+
+                {{ form_label(form.quantite,'Quantite :') }}
+                {{ form_widget(form.quantite) }}<br>
+
+                {{ form_label(form.imgUrl,'Chemain Image :') }}
+                {{ form_widget(form.imgUrl) }}<br>
+
+                <input type="file" id="file" name="file" class="btn btn-file"><br>
+                <div><img id="PreviewProduit" src=""></div>
+
+
+                {{ form_label(form.prix,'Prix :') }}
+                {{ form_widget(form.prix) }}<br>
+
+                {{ form_label(form.marque,'Marque :') }}
+                {{ form_widget(form.marque) }}<br>
+
+                {{ form_label(form.type,'Type :') }}
+                {{ form_widget(form.type) }}<br>
+                <input type="submit" id="ajouter" name="ajouter" value="Ajouter" class="form-control btn btn-primary"><br>
                 {{ form_end(form) }}
             </div>
         </div>
@@ -293,7 +323,29 @@
     <!-- new added graphs chart js-->
 
 
+    <script>
+        $(document).ready(function () {
+            $('#file').bind('change',function () {
+                $('#PreviewProduit').attr('src', "http://localhost/velotnweb/web"+url.value);
+                $('#PreviewProduit').attr('style', "width:200px;height:200px");
+            });
 
+        });
+        const importbtn = document.getElementById("file");
+        const url = document.getElementById("velotnbundle_produits_imgUrl");
+        const preview = document.getElementById("PreviewProduit");
+        let absolutePath;
+        importbtn.addEventListener("change",function () {
+            if(importbtn.value){
+                url.value="/images/products/"+importbtn.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+            }else
+            {
+                url.value="pas de fichier choisit";
+            }
+        })
+
+
+    </script>
     <script>
         var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         var color = Chart.helpers.color;

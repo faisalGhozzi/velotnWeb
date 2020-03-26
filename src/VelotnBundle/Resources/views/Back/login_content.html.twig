@@ -1,0 +1,72 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% extends 'back.html.twig' %}
+
+
+{% block body %}
+
+    <div class="main-content">
+        <div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+            <!--left-fixed -navigation-->
+            <aside class="sidebar-left">
+                <nav class="navbar navbar-inverse">
+                    <div class="navbar-header">
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="sidebar-menu">
+                            {#SIDE BAR#}
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </nav>
+            </aside>
+        </div>
+        <!--left-fixed -navigation-->
+        <!-- header-starts -->
+        <div class="sticky-header header-section ">
+            <div class="header-left">
+                <div class="clearfix"> </div>
+            </div>
+            <div class="header-right">
+
+                <div class="clearfix"> </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <!-- //header-ends -->
+        <!-- main content start-->
+        <div id="page-wrapper">
+            <div class="main-page login-page ">
+                <h2 class="title1"><i class="fas fa-bicycle"></i> Connexion Dashboard Velotn <i class="fas fa-biking"></i></h2>
+                <div class="widget-shadow">
+                    <div class="login-body">
+                        {% if error %}
+                            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+                        <form action="{{ path("fos_user_security_admin_check") }}" method="post" class="form">
+                            {% if csrf_token %}
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                            {% endif %}
+                            <i class="fas fa-user"></i><label for="username">  Nom d'utilisateur</label><br>
+                            <input type="text" id="username" name="_username" class="form-control" required="required" placeholder=""><br>
+                            <i class="fas fa-lock"></i><label for="password">  Mot de passe</label><br>
+                            <input type="password" id="password" name="_password" class="form-control" placeholder="">
+                            <div class="forgot-grid">
+                                <div class="forgot">
+                                    <a href="#">Mot de passe oublié?</a>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                            <input type="submit" id="_submit" class="site-btn login-btn" name="_submit" value="{{ 'security.login.submit'|trans }}">
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!--footer-->
+        <div class="footer">
+            <p>&copy; 2018 Glance Design Dashboard. All Rights Reserved | Design by <a href="https://w3layouts.com/" target="_blank">w3layouts</a></p>		</div>
+        <!--//footer-->
+    </div>
+
+{% endblock %}
