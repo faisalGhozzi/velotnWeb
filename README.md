@@ -4,9 +4,9 @@ Before pulling.<br/>
 Please install the following external bundles:<br/>
 <br/>
 FOSBundle :<br/>
-&nbps;&nbps;composer require friendsofsymfony/user-bundle<br/>
+&nbsp;&nbsp;composer require friendsofsymfony/user-bundle<br/>
 NzoUrlEncryptorBundle:<br/>
-&nbps;&nbps;composer require nzo/url-encryptor-bundle<br/>
+&nbsp;&nbsp;composer require nzo/url-encryptor-bundle<br/>
 
 Symfony Standard Edition
 ========================
