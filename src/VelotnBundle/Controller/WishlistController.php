@@ -12,10 +12,10 @@ class WishlistController extends Controller{
      * @param $_route
      * @param Request $request
      */
-public function wishlistaddAction($_route,Request $request){
+/*public function wishlistaddAction($_route,Request $request){
 
     $wishlist = new Wishlist();
 
-}
+}*/
 
 }
