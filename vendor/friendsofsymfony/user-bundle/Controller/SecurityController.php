@@ -77,6 +77,7 @@ class SecurityController extends Controller
 
     /**
      * @param Request $request
+     * @return Response
      */
     public function adminLoginAction(Request $request)
     {
