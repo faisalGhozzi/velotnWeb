@@ -2,8 +2,10 @@
 
 namespace VelotnBundle\Controller;
 
+use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -92,6 +94,29 @@ class PromotionController extends Controller
 
     }
 
+    /**
+     * @Route("/Promo",name="promo")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function promoAction(Request $request)
+    {
+        $codePromo = $request->request->get("codepromo");
+        $em = $this->getDoctrine()->getManager();
+        $promo = $em->getRepository(Promotion::class)->findOneBy(array(
+           'type'=>$codePromo
+        ));
+
+        if($promo)
+        {
+            $data = [
+                'idPromo'=>$promo->getId(),
+                'taux'=>$promo->getTaux(),
+                'erreur'=>""
+            ];
+            return new JsonResponse($data);
+        }
+    }
 
 
 }

@@ -183,14 +183,39 @@
                                 </div>
                                 <div class="pd-desc">
                                     <p>{{ produit.id.description }}</p>
-                                    <h4>{{ produit.id.prix }} TND/j<!--span>629.99</span--></h4>
+                                    <div style="display: inline; width: 100px; padding: 5px;">
+                                    <h4 style =" float:left; "id="prix">{{ produit.id.prix }}<!--span>629.99</span--></h4>
+                                    <h4 style =" float:right; width:355px;">TND/j</h4>
+                                    </div>
                                 </div>
-                                <div class="quantity">
-                                    <!--div class="pro-qty">
-                                        <input type="text" value="1">
-                                    </div-->
-                                    <a href="#" class="primary-btn pd-cart">Add To Cart</a>
+                                <form action="{{ path('AjouterLocation') }}" method="post">
+                                    <input id="idProduit" name="idProduit" value="{{ produit.id.id }}" hidden>
+                                <div id="dates">
+                                    <label for="dated">Date Debut</label>
+                                    <input id="dated" name="dated" type="Date" class="form-control" style="width: 50%;"><br>
+                                    <label for="datef">Date Fin</label>
+                                    <input id="datef" name="datef" type="Date" class="form-control" style="width: 50%;"><br>
                                 </div>
+                                <div>
+                                    {#eswithom bejnab baaadhom code promo merci hahahahhaa#}
+                                    <label for="codepromo">Code Promo :</label>
+                                    <div>
+                                    <input id="codepromo" name="codepromo" type="Text" class="form-control" style="width: 50%;"><br>
+                                        <div id="erreur"></div>
+                                        <input id="idPromo" name="idPromo" type="Text" hidden>
+                                    <input id="app" type="Button" value="Appliquer" class="btn btn-info">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label>Nombre de Jours :</label>
+                                            <p id="nbj"></p>
+                                    <label>Prix Total :</label>
+                                            <p id="prixt"></p>
+                                            <input id="prixtot" name="prixt" hidden>
+                                </div>
+                                    <input type="submit" class="btn btn-success" value="Louer">
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -364,4 +389,70 @@
         </div>
     </section>
     <!-- Product Shop Section End -->
+{% endblock %}
+{% block javascripts %}
+
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    <script>
+    $(document).ready(function () {
+
+        let dated = document.getElementById('dated');
+        let datef = document.getElementById('datef');
+        let pJours = document.getElementById('nbj');
+        let prixt = document.getElementById('prixt');
+        let prix = document.getElementById('prix');
+        let codepromo = document.getElementById('codepromo');
+        let msgPromo = document.getElementById('erreur');
+        let idPromo= document.getElementById('idPromo');
+        let prixtot= document.getElementById('prixtot');
+
+
+        pJours.innerHTML="0";
+        prixt.innerHTML=""+parseInt(prix.innerText, 10);
+        $('#dates').on('change','input',function (event) {
+            if(isNaN(dated.value) && isNaN(datef.value))
+            {
+                let dd = new Date(dated.value);
+                let df = new Date(datef.value);
+                let time_diff = df.getTime()-dd.getTime();
+                let days_diff = time_diff / (1000 * 3600 * 24);
+
+                pJours.innerHTML=""+days_diff;
+                prixt.innerHTML=""+parseInt(prix.innerText, 10)*days_diff;
+                prixtot.value=parseInt(prix.innerText, 10)*days_diff;
+
+            }
+
+        });
+
+        $('#app').on('click',function () {
+            $.ajax({
+                url:"/Promo",
+                method:"POST",
+                dataType:"JSON",
+                data:{codepromo:codepromo.value},
+                async:true,
+                success: function (data,status) {
+                    msgPromo.innerHTML="Code Applique";
+                    let AncienPrix = parseInt(prixt.innerText,10);
+                    prixt.innerText=""+(AncienPrix-AncienPrix*(data['taux']/100));
+                    idPromo.value=data['idPromo'];
+                    prixtot.value=(AncienPrix-AncienPrix*(data['taux']/100));
+
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    msgPromo.innerHTML="Code Invalide";
+                    idPromo.value=-1;
+                }
+            })
+        });
+
+
+
+    });
+
+
+    </script>
+
+
 {% endblock %}

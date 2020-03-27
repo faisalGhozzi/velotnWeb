@@ -17,7 +17,7 @@ class Location
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -43,35 +43,137 @@ class Location
     private $prixtotal;
 
     /**
-     * @var \Produits
+     * @var integer
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @ORM\OneToOne(targetEntity="Produits")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_produit", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="id_produit", type="integer", nullable=false)
      */
     private $idProduit;
 
     /**
-     * @var \FosUser
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="VelotnBundle\Entity\User")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_user", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="id_user", type="integer", nullable=false)
      */
     private $idUser;
 
     /**
-     * @var \Promotion
-     * @ORM\OneToOne(targetEntity="VelotnBundle\Entity\Promotion")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_promo",referencedColumnName="id")
-     * })
+     * @var integer
+     *
+     * @ORM\Column(name="id_promo", type="integer", nullable=false)
      */
     private $idPromo;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateDebut()
+    {
+        return $this->dateDebut;
+    }
+
+    /**
+     * @param \DateTime $dateDebut
+     */
+    public function setDateDebut($dateDebut)
+    {
+        $this->dateDebut = $dateDebut;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateFin()
+    {
+        return $this->dateFin;
+    }
+
+    /**
+     * @param \DateTime $dateFin
+     */
+    public function setDateFin($dateFin)
+    {
+        $this->dateFin = $dateFin;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrixtotal()
+    {
+        return $this->prixtotal;
+    }
+
+    /**
+     * @param float $prixtotal
+     */
+    public function setPrixtotal($prixtotal)
+    {
+        $this->prixtotal = $prixtotal;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdProduit()
+    {
+        return $this->idProduit;
+    }
+
+    /**
+     * @param int $idProduit
+     */
+    public function setIdProduit($idProduit)
+    {
+        $this->idProduit = $idProduit;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdUser()
+    {
+        return $this->idUser;
+    }
+
+    /**
+     * @param int $idUser
+     */
+    public function setIdUser($idUser)
+    {
+        $this->idUser = $idUser;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdPromo()
+    {
+        return $this->idPromo;
+    }
+
+    /**
+     * @param int $idPromo
+     */
+    public function setIdPromo($idPromo)
+    {
+        $this->idPromo = $idPromo;
+    }
 
 
 }
