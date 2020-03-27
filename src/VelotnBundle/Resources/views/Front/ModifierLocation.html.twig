@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="register-login-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="register-form">
+                        <div class="form-body">
+                            <form METHOD="POST">
+                                <label for="dated">Date Debut</label>
+                                <input id="dated" name="dated" type="Date" class="form-control" style="width: 50%;"  value="{{locations .dateDebut|date("m/d/Y") }} ><br>
+                                <label for="datef">Date Fin</label>
+                                <input id="datef" name="datef" type="Date" value="{{ locations.dateFin|date("m/d/Y") }} class="form-control" style="width: 50%;"><br>
+
+                                <button type="submit" class="btn btn-default">Modifier</button> </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

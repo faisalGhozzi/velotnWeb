@@ -10,6 +10,8 @@
                         <ul class="filter-catagories">
                             <li><a href="{{ path('fos_user_profile_edit') }}">Modify Profile</a></li>
                             <li><a href="#">Delete Account</a></li>
+                            <li><a href="{{ path('location') }}">Mes Locations </a></li>
+
                         </ul>
                     </div>
                 </div>
@@ -32,6 +34,7 @@
                                     <div class="group-input">
                                         <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
                                     </div>
+
                             </div>
                         </div>
                     </div>
