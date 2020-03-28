@@ -10,7 +10,7 @@ class CartRepository extends EntityRepository{
             ->select()
             ->from("VelotnBundle:Panier",'cart')
             ->from("VelotnBundle:Produits", 'a')
-            ->innerJoin('a.id','r', Join::ON,'cart.produit_id=a.id')
+            ->innerJoin('a.id','r')
             ->where('cart.user = ?1')
             ->setParameter(1,$user)
             ->getQuery()

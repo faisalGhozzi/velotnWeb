@@ -34,7 +34,7 @@ class CartController extends Controller{
         $p->setImgUrl($product->getImgUrl());
 
         $panier = new Panier();
-        $panier->setProduit($product->getId());
+        $panier->setProduit($product);
         $panier->setUser($user->getId());
         $panier->setQte(1);
         $panier->setPrixUnitaire($p->getPrix());
