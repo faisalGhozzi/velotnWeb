@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="register-login-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="register-form">
+                        <div class="form-body">
+                            <form METHOD="POST">
+                                <div id="dates">
+                                <label for="dated">Date Debut</label>
+                                <input id="dated" name="dated" type="Date" class="form-control" style="width: 50%;"  value="{{locations.dateDebut|date("Y-m-d") }}" ><br>
+                                <label for="datef">Date Fin</label>
+                                <input id="datef" name="datef" type="Date" value="{{ locations.dateFin|date("Y-m-d") }}" class="form-control" style="width: 50%;"><br>
+                                </div>
+                                    <div>
+                                    <input name="prix" id="prix" value="{{ produit.id.prix }}" hidden>
+                                    <label>Nombre des Jours :</label>
+                                    <p id="nbj"></p>
+                                    <label >Prix Total :</label>
+                                    <p id="prixt">{{ locations.prixtotal }}</p>
+                                    <input id="prixtot" name="prixt" hidden>
+                                        {% if promo %}
+                                     <input id="tauxPromo" value="{{ promo.taux }}" hidden>
+                                        {% endif %}
+                                        {% if not promo %}
+                                            <input id="tauxPromo" value="0" hidden>
+                                        {% endif %}
+                                </div>
+
+
+                                <button type="submit" class="btn btn-success">Modifier</button> </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+
+            let dated = document.getElementById('dated');
+            let datef = document.getElementById('datef');
+            let pJours = document.getElementById('nbj');
+            let prixt = document.getElementById('prixt');
+            let prix = document.getElementById('prix');
+            let prixtot= document.getElementById('prixtot');
+            let tauxPromo = document.getElementById('tauxPromo')
+
+
+            pJours.innerHTML="0";
+            $('#dates').on('change','input',function (event) {
+                if(isNaN(dated.value) && isNaN(datef.value))
+                {
+                    let dd = new Date(dated.value);
+                    let df = new Date(datef.value);
+                    let time_diff = df.getTime()-dd.getTime();
+                    let days_diff = time_diff / (1000 * 3600 * 24);
+
+                    pJours.innerHTML=""+days_diff;
+                    prixt.innerHTML=""+prix.value*days_diff;
+                    prixtot.value=prix.value*days_diff;
+                    if(tauxPromo.value===0)
+                    {
+                        let AncienPrix = parseInt(prixt.innerText,10);
+                    }else
+                    {
+                        let AncienPrix = parseInt(prixt.innerText,10);
+                        prixt.innerHTML=""+((AncienPrix)-(AncienPrix*tauxPromo.value)/100);
+                        prixtot.value=(AncienPrix)-(AncienPrix*tauxPromo.value/100);
+                    }
+
+
+                }
+
+            });
+
+
+
+
+
+        });
+
+
+    </script>
+
+
+{% endblock %}

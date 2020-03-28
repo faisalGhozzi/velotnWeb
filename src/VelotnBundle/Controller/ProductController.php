@@ -12,6 +12,7 @@ use VelotnBundle\Entity\Piecesrechanges;
 use VelotnBundle\Entity\Produits;
 use VelotnBundle\Entity\ProduitsLocation;
 use VelotnBundle\Entity\Velos;
+use VelotnBundle\Form\ProduitsType;
 
 class ProductController extends Controller
 {
