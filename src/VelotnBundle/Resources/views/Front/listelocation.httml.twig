@@ -29,15 +29,22 @@
                             <div class="row">
                                 <div class="col-lg-4 col-sm-6">
                                         <div class="table-responsive bs-example widget-shadow">
-                                            <h4>Les Pomotions:</h4>
+                                            <h4>Mes Locations:</h4>
                                             <table class="table table-bordered">
                                                 <thead>
-                                                <tr> <th> Date Debut </th> <th>Date Fin </th> <th>Prix Total</th><th>Supprimer</th> <th>Modifier</th> </tr>
+                                                <tr> <th> Date Debut </th> <th>Date Fin </th> <th>Nom Produit</th> <th> Image </th> <th>Prix </th> <th>Prix Total</th><th>Supprimer</th> <th>Modifier</th> </tr>
                                                 </thead>
 
                                                 <tbody>
                                                 {% for location in locations %}
-                                                    <tr> <th scope="row">{{ location.dateDebut|date("m/d/Y") }}</th> <td>{{ location.dateFin|date("m/d/Y")  }}</td> <td>{{ location.prixtotal }}</td>
+                                                    <tr>
+                                                        <th scope="row">{{ location.dateDebut|date("Y-m-d") }}</th>
+                                                        <th scope="row">{{ location.dateFin|date("Y-m-d")  }}</th>
+
+                                                        <th scope="row">{{ produits[0].id.nomProd }}</th>
+                                                        <td><img src="{{ asset(produits[0].id.imgUrl) }}" style="width: 100px;height: 100px;"/></td>
+                                                        <th scope="row">{{ produits[0].id.prix }}</th>
+                                                        <th scope="row">{{ location.prixtotal }}</th>
                                                         <td><a href="{{ path('supprimerloco',{'id': location.id}) }}" class="btn btn-danger"> Supprimer</a></td>
                                                         <td><a href="{{ path('modifierloco',{'id': location.id}) }}" class="btn btn-primary"> Modifier</a></td>
                                                     </tr>
