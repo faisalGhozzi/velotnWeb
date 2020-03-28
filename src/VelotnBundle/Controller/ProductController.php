@@ -22,17 +22,12 @@ class ProductController extends Controller
     public function showAction()
     {
         $em = $this->getDoctrine()->getManager();
-        // REMOVE THIS ! $queryV = $em->createQuery("SELECT v, p FROM VelotnBundle:Velos v JOIN v.id p");
 
-
-        $all = $em->getRepository('VelotnBundle:Produits')->findAllProducts();
         $velos = $em->getRepository('VelotnBundle:Velos')->findAllVelos();
         $accessoires = $em->getRepository('VelotnBundle:Accessoires')->findAllAccessoires();
         $piecesrechanges = $em->getRepository('VelotnBundle:Piecesrechanges')->findAllPieceRechanges();
-        //$productsLocation = $em->getRepository('VelotnBundle:ProduitsLocation')->findAllProductsLocation();
         $products = array();
         array_push($products,$velos,$accessoires,$piecesrechanges);
-        //dump($products[0]);
 
 
         return $this->render('@Velotn/Front/shop.html.twig', array(

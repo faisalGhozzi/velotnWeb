@@ -20,10 +20,6 @@ class CartController extends Controller{
     public function AjouterPanierAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $username = $this->getUser()->getUsername();
-        /*$user = $em->getRepository(User::class)->findOneBy(array(
-            'username'=>$username
-        ));*/
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $product = $em->getRepository(Produits::class)->find($request->request->get("idProduct"));
         dump($product);
@@ -49,6 +45,21 @@ class CartController extends Controller{
 
         return new JsonResponse();
 
+    }
+
+    /**
+     * @Route("/Cart",name="shoppingcart")
+     */
+    public function showcartAction(){
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
+
+        dump($cart);
+
+        return $this->render('@Velotn/Front/shopping-cart.html.twig',array(
+            'cart' => $cart
+        ));
     }
 
 }
