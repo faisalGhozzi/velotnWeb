@@ -62,7 +62,7 @@ class CartController extends Controller{
 
         $produits = $em->getRepository('VelotnBundle:Produits')->findBy(['id'=>$ids]);
 
-
+        dump($cart);
         return $this->render('@Velotn/Front/shopping-cart.html.twig',array(
             'cart' => $cart,
             'produits'=>$produits
