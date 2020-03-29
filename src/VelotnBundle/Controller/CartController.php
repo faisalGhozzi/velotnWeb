@@ -22,7 +22,7 @@ class CartController extends Controller{
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $product = $em->getRepository(Produits::class)->find($request->request->get("idProduct"));
-        dump($product);
+        $u = $em->getRepository(User::class)->find($user);
 
         $p= new Produits();
 
@@ -35,7 +35,7 @@ class CartController extends Controller{
 
         $panier = new Panier();
         $panier->setProduit($product);
-        $panier->setUser($user->getId());
+        $panier->setUser($u);
         $panier->setQte(1);
         $panier->setPrixUnitaire($p->getPrix());
         $panier->setPrixTotal($panier->getPrixUnitaire()*$panier->getQte());
@@ -54,11 +54,18 @@ class CartController extends Controller{
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
+        $ids=array();
+        foreach ($cart as $item)
+        {
+           array_push($ids,($item->getProduit()->getId()));
+        }
 
-        dump($cart);
+        $produits = $em->getRepository('VelotnBundle:Produits')->findBy(['id'=>$ids]);
+
 
         return $this->render('@Velotn/Front/shopping-cart.html.twig',array(
-            'cart' => $cart
+            'cart' => $cart,
+            'produits'=>$produits
         ));
     }
 

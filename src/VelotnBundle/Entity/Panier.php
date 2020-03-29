@@ -53,7 +53,11 @@ class Panier
 
     /**
      * @var integer
-     * @ORM\Column(name="user_id", type="integer",nullable=false)
+     *
+     * @ORM\ManyToOne(targetEntity="VelotnBundle\Entity\User")
+     * @ORM\JoinColumns({
+     *  @ORM\JoinColumn(name="user_id",referencedColumnName="id")
+     *})
      */
     private $user;
 

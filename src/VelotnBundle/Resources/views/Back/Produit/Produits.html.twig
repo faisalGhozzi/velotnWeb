@@ -33,6 +33,7 @@
                                 </a>
                                 <ul class="dropdown-menu drp-mnu">
                                     <li><a href="{{ path('AjouterProduit') }}"> Ajouter Produit</a></li>
+                                    <li><a href="{{ path('modifierProduit') }}"> Modifier Produit</a></li>
                                     <li><a href="{{ path('listeProduits') }}"> Afficher Liste Des Produit</a></li>
 
                                 </ul>
@@ -287,7 +288,7 @@
                                 <th>Image</th>
                                 <th>Marque</th>
                                 <th>Type</th>
-                                <th>Modifier</th>
+
                                 <th>Supprimer</th>
                             </tr>
 
@@ -303,7 +304,7 @@
                                 <td><img src="{{ asset(product.id.imgUrl) }}" style="width: 100px;height: 100px;"/></td>
                                 <td>{{ product.marque }}</td>
                                 <td>{{ product.type }}</td>
-                                <td><a href="" class="btn btn-info">Modifier</a></td>
+
                                 <td><a href="{{ path('supprimerVelo',{'id': product.id.id}) }}" class="btn btn-danger">Supprimer</a></td>
                             </tr>
                             {% endfor %}
@@ -325,7 +326,7 @@
                             <th>Image</th>
                             <th>Marque</th>
                             <th>Type</th>
-                            <th>Modifier</th>
+
                             <th>Supprimer</th>
                         </tr>
 
@@ -340,7 +341,7 @@
                                 <td><img src="{{ asset(product.id.imgUrl) }}" style="width: 100px;height: 100px;"/></td>
                                 <td>{{ product.marque }}</td>
                                 <td>{{ product.type }}</td>
-                                <td><a href="#" class="btn btn-info">Modifier</a></td>
+
                                 <td><a href="{{ path('supprimerVelol',{'id': product.id.id}) }}" class="btn btn-danger">Supprimer</a></td>
                             </tr>
                         {% endfor %}
@@ -362,7 +363,7 @@
                             <th>Image</th>
                             <th>Marque</th>
                             <th>Type</th>
-                            <th>Modifier</th>
+
                             <th>Supprimer</th>
                         </tr>
 
@@ -377,7 +378,7 @@
                                 <td><img src="{{ asset(product.id.imgUrl) }}" style="width: 100px;height: 100px;"/></td>
                                 <td>{{ product.marque }}</td>
                                 <td>{{ product.type }}</td>
-                                <td><a href="#" class="btn btn-info">Modifier</a></td>
+
                                 <td><a href="{{ path('supprimerAccessoire',{'id': product.id.id}) }}" class="btn btn-danger">Supprimer</a></td>
                             </tr>
                         {% endfor %}
@@ -399,7 +400,7 @@
                             <th>Image</th>
                             <th>Marque</th>
                             <th>Type</th>
-                            <th>Modifier</th>
+
                             <th>Supprimer</th>
                         </tr>
 
@@ -414,7 +415,7 @@
                                 <td><img src="{{ asset(product.id.imgUrl) }}" style="width: 100px;height: 100px;"/></td>
                                 <td>{{ product.marque }}</td>
                                 <td>{{ product.type }}</td>
-                                <td><a href="#" class="btn btn-info">Modifier</a></td>
+
                                 <td><a href="{{ path('supprimerPieceR', {'id':product.id.id }) }}" class="btn btn-danger">Supprimer</a></td>
                             </tr>
                         {% endfor %}

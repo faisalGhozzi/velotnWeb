@@ -274,15 +274,12 @@
         <!-- main content start -->
         <div id="page-wrapper">
             <div class="main-page">
-               {{ form_start(form, {'attr': {'class': 'form-body','style':'width:50%;'}}) }}
+                {{ form_start(form, {'attr': {'class': 'form-body','style':'width:50%;'}}) }}
                 {#{{ form_label(form.typeProduit,'Type Produit :') }}
                 {{ form_widget(form.typeProduit) }}<br>#}
-                <label for="typeProduit">Type du Produit :</label>
-                <select id="typeProduit" name="typeProduit" class="form-control">
-                    <option value="Velo">Velo</option>
-                    <option value="PieceRechange">PieceRechange</option>
-                    <option value="Accessoire">Accessoire</option>
-                    <option value="Velo a Louer">Velo a Louer</option>
+                <label for="produit">Produit :</label>
+                <select id="produit" name="produit" class="form-control">
+
 
                 </select><br>
 
@@ -310,7 +307,7 @@
 
                 {{ form_label(form.type,'Type :') }}
                 {{ form_widget(form.type) }}<br>
-                <input type="submit" id="ajouter" name="ajouter" value="Ajouter" class="form-control btn btn-primary"><br>
+                <input type="submit" id="Modifier" name="Modifier" value="Modifier" class="form-control btn btn-primary"><br>
                 {{ form_end(form) }}
             </div>
         </div>
@@ -322,10 +319,76 @@
     </div>
 
     <!-- new added graphs chart js-->
-
-
     <script>
         $(document).ready(function () {
+
+            $.ajax({
+               url: "/admin/getProducts",
+               method: "POST",
+               dataType: "JSON",
+               data:null,
+               async:true,
+               success: function (data,status) {
+                   for(i=0;i<Object.keys(data[0][0]).length;i++)
+                   {
+                       $("#produit").append($("<option> </option>").val(data[0][0][i]).html(data[0][1][i]));
+                   }
+                    $.ajax({
+                        url:"/admin/getProduct",
+                        method:"POST",
+                        dataType: "JSON",
+                        data:{id:data[0][0][0]},
+                        async:true,
+                        success: function (data,status) {
+
+                            $("#velotnbundle_produits_nomprod").val(data["nom"]);
+                            $("#velotnbundle_produits_description").val(data["description"]);
+                            $("#velotnbundle_produits_quantite").val(data["quantite"]);
+                            $("#velotnbundle_produits_imgUrl").val(data["image"]);
+                            $("#velotnbundle_produits_prix").val(data["prix"]);
+                            $("#velotnbundle_produits_marque").val(data["marque"]);
+                            $("#velotnbundle_produits_type").val(data["type"]);
+                                //
+                        },
+                        error: function (xhr,textStatus,errorThrown) {
+                            alert('Failed to get Product');
+                            alert(errorThrown);
+                        }
+                });
+               },
+                error: function (xhr, textStatus, errorThrown) {
+
+                    alert('Failed to get Products');
+                    alert(errorThrown);
+
+                }
+            });
+
+            $('#produit').bind('change',function () {
+                $.ajax({
+                    url:"/admin/getProduct",
+                    method:"POST",
+                    dataType: "JSON",
+                    data:{id:document.getElementById('produit').value},
+                    async:true,
+                    success: function (data,status) {
+
+                        $("#velotnbundle_produits_nomprod").val(data["nom"]);
+                        $("#velotnbundle_produits_description").val(data["description"]);
+                        $("#velotnbundle_produits_quantite").val(data["quantite"]);
+                        $("#velotnbundle_produits_imgUrl").val(data["image"]);
+                        $("#velotnbundle_produits_prix").val(data["prix"]);
+                        $("#velotnbundle_produits_marque").val(data["marque"]);
+                        $("#velotnbundle_produits_type").val(data["type"]);
+                        //
+                    },
+                    error: function (xhr,textStatus,errorThrown) {
+                        alert('Failed to get Product');
+                        alert(errorThrown);
+                    }
+                });
+            });
+
             $('#file').bind('change',function () {
                 $('#PreviewProduit').attr('src', "http://localhost/velotnweb/web"+url.value);
                 $('#PreviewProduit').attr('style', "width:200px;height:200px");

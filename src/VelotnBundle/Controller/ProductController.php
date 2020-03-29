@@ -5,6 +5,7 @@ namespace VelotnBundle\Controller;
 use Doctrine\ORM\Query\Expr\Select;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use VelotnBundle\Entity\Accessoires;
@@ -100,7 +101,7 @@ class ProductController extends Controller
         if($form->isSubmitted())
         {
 
-            dump($request->request);
+
             $produit->setNomprod($request->request->get('velotnbundle_produits')['nomprod']);
             $produit->setDescription($request->request->get("velotnbundle_produits")['description']);
             $produit->setPrix($request->request->get("velotnbundle_produits")['prix']);
@@ -147,6 +148,7 @@ class ProductController extends Controller
                 $em->persist($VeloL);
                 $em->flush();
             }
+            return $this->redirectToRoute('listeProduits');
 
         }
 
@@ -234,6 +236,141 @@ class ProductController extends Controller
         $em->remove($velol);
         $em->flush();
         return $this->redirectToRoute('listeProduits');
+
+    }
+
+    /**
+     * @Route("/admin/Produits/modifierProduit/",name="modifierProduit")
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
+    public function modifierProduitAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $form=$this->createForm(ProduitsType::class);
+        $form= $form->handleRequest($request);
+
+
+
+
+        if($form->isSubmitted())
+        {
+            $produits=$em->getRepository(Produits::class)->findAll();
+            $produit = $em->getRepository(Produits::class)->find($request->request->get('produit'));
+            $Velo= $em->getRepository(Velos::class)->find($request->request->get('produit'));
+            $a=$em->getRepository(Accessoires::class)->find($request->request->get('produit'));
+            $vl=$em->getRepository(ProduitsLocation::class)->find($request->request->get('produit'));
+            $pr=$em->getRepository(Piecesrechanges::class)->find($request->request->get('produit'));
+
+            $produit->setNomprod($request->request->get('velotnbundle_produits')['nomprod']);
+            $produit->setDescription($request->request->get("velotnbundle_produits")['description']);
+            $produit->setPrix($request->request->get("velotnbundle_produits")['prix']);
+            $produit->setQuantite($request->request->get("velotnbundle_produits")['quantite']);
+            $produit->setImgUrl($request->request->get("velotnbundle_produits")['imgUrl']);
+
+            $em->flush();
+
+
+            if(!empty($Velo))
+            {
+                $Velo->setId($produit);
+                $Velo->setMarque($request->request->get("velotnbundle_produits")['marque']);
+                $Velo->setType($request->request->get("velotnbundle_produits")['type']);
+                $em->flush();
+            }
+
+            if(!empty($a))
+            {
+                $a->setId($produit);
+                $a->setMarque($request->request->get("velotnbundle_produits")['marque']);
+                $a->setType($request->request->get("velotnbundle_produits")['type']);
+                $em->flush();
+            }
+
+            if(!empty($vl))
+            {
+                $vl->setId($produit);
+                $vl->setMarque($request->request->get("velotnbundle_produits")['marque']);
+                $vl->setType($request->request->get("velotnbundle_produits")['type']);
+                $em->flush();
+            }
+
+            if(!empty($pr))
+            {
+                $pr->setId($produit);
+                $pr->setMarque($request->request->get("velotnbundle_produits")['marque']);
+                $pr->setType($request->request->get("velotnbundle_produits")['type']);
+                $em->flush();
+            }
+
+            return $this->redirectToRoute('listeProduits');
+
+        }
+
+        return $this->render('@Velotn/Back/Produit/modifierProduit.html.twig',array(
+           'form'=>$form->createView()
+        ));
+    }
+
+    /**
+     * @Route("/admin/getProducts",name="getProducts")
+     */
+    public function getProductsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $products = $em->getRepository(Produits::class)->findAll();
+        $ids=array();
+        $nomp=array();
+
+        foreach ($products as $item)
+        {
+            array_push($ids,($item->getId()));
+
+            array_push($nomp,($item->getNomprod()));
+        }
+        $produits=array([$ids,$nomp]);
+        return new JsonResponse($produits);
+
+    }
+
+    /**
+     * @Route("/admin/getProduct",name="getProduct")
+     */
+    public function getProductAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $p = $em->getRepository(Produits::class)->find($request->request->get('id'));
+        $v= $em->getRepository(Velos::class)->find($request->request->get('id'));
+        $a=$em->getRepository(Accessoires::class)->find($request->request->get('id'));
+        $vl=$em->getRepository(ProduitsLocation::class)->find($request->request->get('id'));
+        $pr=$em->getRepository(Piecesrechanges::class)->find($request->request->get('id'));
+        $product=array();
+
+        if(!empty($v))
+        {
+            $product=array("nom"=>$p->getNomprod(),"description"=>$p->getDescription(),"quantite"=>$p->getQuantite(),"prix"=>$p->getPrix(),"image"=>$p->getImgUrl(),"marque"=>$v->getMarque(),"type"=>$v->getType());
+        }
+
+        if(!empty($a))
+        {
+            $product=array("nom"=>$p->getNomprod(),"description"=>$p->getDescription(),"quantite"=>$p->getQuantite(),"prix"=>$p->getPrix(),"image"=>$p->getImgUrl(),"marque"=>$a->getMarque(),"type"=>$a->getType());
+        }
+
+        if(!empty($vl))
+        {
+            $product=array("nom"=>$p->getNomprod(),"description"=>$p->getDescription(),"quantite"=>$p->getQuantite(),"prix"=>$p->getPrix(),"image"=>$p->getImgUrl(),"marque"=>$vl->getMarque(),"type"=>$vl->getType());
+        }
+
+        if(!empty($pr))
+        {
+            $product=array("nom"=>$p->getNomprod(),"description"=>$p->getDescription(),"quantite"=>$p->getQuantite(),"prix"=>$p->getPrix(),"image"=>$p->getImgUrl(),"marque"=>$pr->getMarque(),"type"=>$pr->getType());
+        }
+
+
+        return new JsonResponse($product);
 
     }
 }
