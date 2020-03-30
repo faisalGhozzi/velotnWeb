@@ -50,12 +50,20 @@ public function AjouterLocationAction(Request $request)
      */
     public function LocationAction()
     {
+        $em = $this->getDoctrine()->getManager();
         $locations= $this->getDoctrine()->getRepository(Location::class)->findAll() ;
         $produitsLocation= $this->getDoctrine()->getRepository(ProduitsLocation::class)->findAllProductsLocation();
-
-        return $this->render('@Velotn/Front/listelocation.httml.twig', array(
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
+        $ids=array();
+        foreach ($cart as $item)
+        {
+            array_push($ids,($item->getProduit()->getId()));
+        }
+        return $this->render('@Velotn/Front/listelocation.html.twig', array(
             'locations'=>$locations,
-            'produits'=>$produitsLocation
+            'produits'=>$produitsLocation,
+            'cart' => $cart
         ));
     }
 

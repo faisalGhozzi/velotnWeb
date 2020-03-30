@@ -30,9 +30,17 @@ class ProductController extends Controller
         $products = array();
         array_push($products,$velos,$accessoires,$piecesrechanges);
 
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
+        $ids=array();
+        foreach ($cart as $item)
+        {
+            array_push($ids,($item->getProduit()->getId()));
+        }
 
         return $this->render('@Velotn/Front/shop.html.twig', array(
-            'products' => $products
+            'products' => $products,
+            'cart' => $cart
         ));
     }
 
@@ -45,8 +53,18 @@ class ProductController extends Controller
         $productsLocation = $em->getRepository('VelotnBundle:ProduitsLocation')->findAllProductsLocation();
         $products = array();
         array_push($products,$productsLocation);
+
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
+        $ids=array();
+        foreach ($cart as $item)
+        {
+            array_push($ids,($item->getProduit()->getId()));
+        }
+
         return $this->render('@Velotn/Front/rent.html.twig', array(
-            'products' => $products
+            'products' => $products,
+            'cart' => $cart
         ));
     }
 
