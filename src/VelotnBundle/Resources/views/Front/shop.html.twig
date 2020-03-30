@@ -171,11 +171,13 @@
                                         <img src="{{ asset(product[0].id.imgUrl) }}" width="200" height="200" alt="">
                                         <!--div class="sale pp-sale">Sale</div-->
                                         <div class="icon">
-                                            <i class="icon_heart_alt"></i>
+                                            <a href="" onclick="AjouterWishlist({{ product[0].id.id }})" style="color: #000" >
+                                                <i class="icon_heart_alt"></i>
+                                            </a>
                                         </div>
                                         <ul>
                                             <li class="w-icon active">
-                                                <a href="#" onclick="AjouterPanier({{ product[0].id.id }})" class="CartButton">
+                                                <a href="" onclick="AjouterPanier({{ product[0].id.id }})" class="CartButton">
                                                     <input id="{{ product[0].id.id }}" class="id" value="{{ product[0].id.id }}" hidden>
                                                     <i class="icon_bag_alt"></i>
                                                 </a>
@@ -232,6 +234,28 @@
 
                }
            });
+
+        }
+    </script>
+    <script>
+        function AjouterWishlist(id)
+        {
+            $.ajax({
+                url: "/AjouterWishlist",
+                method: "POST",
+                dataType: "JSON",
+                data:{idProduct:id},
+                async:true,
+                success: function (data,status) {
+                    alert("Ajouté au wishr")
+                },
+                error: function (xhr, textStatus, errorThrown) {
+
+                    alert('Ajax Request Failed');
+                    alert(errorThrown);
+
+                }
+            });
 
         }
     </script>
