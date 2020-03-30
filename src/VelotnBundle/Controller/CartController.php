@@ -86,13 +86,19 @@ class CartController extends Controller{
     }
 
     /**
-     * @Route("/SupprimerPanier",name="supprimerPanier")
+     * @Route("/SupprimerPanier/{id}",name="supprimerPanier")
      * @param Request $request
+     * @param $id
      * @return JsonResponse
      */
 
-    public function supprimerPanierAction(Request $request){
+    public function supprimerPanierAction(Request $request,$id){
+        $em = $this->getDoctrine()->getManager();
+        $panier = $em->getRepository(Panier::class)->find($id);
+        $em->remove($panier);
+        $em->flush();
 
+        return new JsonResponse();
     }
 
 

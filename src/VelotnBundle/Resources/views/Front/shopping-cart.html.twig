@@ -56,7 +56,11 @@
                                     </div>
                                 </td>
                                 <td class="total-price">{{ c.prixTotal }} TND</td>
-                                <td class="close-td"><i class="ti-close"></i></td>
+                                <td class="close-td">
+                                    <a href="" onclick="SupprimerPanier({{ c.id }})">
+                                        <i class="ti-close"></i>
+                                    </a>
+                                </td>
                             </tr>
                             {% endfor %}
                             </tbody>
@@ -93,4 +97,25 @@
         </div>
     </section>
     <!-- Shopping Cart Section End -->
+{% endblock %}
+{% block javascripts %}
+    <script>
+        function SupprimerPanier(id)
+        {
+            $.ajax({
+                url: "/SupprimerPanier/"+id,
+                method: "POST",
+                dataType: "JSON",
+                data:{idProduct:id},
+                async:true,
+                success: function (data,status) {
+
+                },
+                error: function (xhr, textStatus, errorThrown) {
+
+                }
+            });
+
+        }
+    </script>
 {% endblock %}
