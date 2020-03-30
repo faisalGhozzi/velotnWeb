@@ -32,7 +32,7 @@ class Wishlist
     private $product;
 
     /**
-     * @var \FosUser
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="VelotnBundle\Entity\User")
      * @ORM\JoinColumns({
@@ -40,6 +40,54 @@ class Wishlist
      * })
      */
     private $user;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return \Produits
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param \Produits $product
+     */
+    public function setProduct($product)
+    {
+        $this->product = $product;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
 
 
 }

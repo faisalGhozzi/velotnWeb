@@ -33,7 +33,7 @@ class WishlistController extends Controller{
         $p->setImgUrl($product->getImgUrl());*/
 
         $wishlist = new Wishlist();
-        $wishlist->setProduit($product);
+        $wishlist->setProduct($product);
         $wishlist->setUser($u);
 
         $em->persist($wishlist);
