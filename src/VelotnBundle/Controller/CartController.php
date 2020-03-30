@@ -22,7 +22,19 @@ class CartController extends Controller{
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $product = $em->getRepository(Produits::class)->find($request->request->get("idProduct"));
+        $exist = $em->getRepository('VelotnBundle:Panier')->findOneBy(['produit'=>$request->request->get("idProduct")]);
         $u = $em->getRepository(User::class)->find($user);
+
+
+        if($exist && ($exist->getUser()==$user))
+        {
+            $exist->setQte($exist->getQte()+1);
+            $em->flush();
+            return new JsonResponse();
+        }
+        else
+        {
+
 
         $p= new Produits();
 
@@ -43,7 +55,8 @@ class CartController extends Controller{
         $em->persist($panier);
         $em->flush();
 
-        return new JsonResponse();
+            return new JsonResponse();
+        }
 
     }
 
@@ -62,10 +75,11 @@ class CartController extends Controller{
 
         $produits = $em->getRepository('VelotnBundle:Produits')->findBy(['id'=>$ids]);
 
+
         dump($cart);
         return $this->render('@Velotn/Front/shopping-cart.html.twig',array(
             'cart' => $cart,
-            'produits'=>$produits
+            'produits'=>$produits,
         ));
 
     }
