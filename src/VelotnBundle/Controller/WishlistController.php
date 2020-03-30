@@ -5,6 +5,7 @@ namespace VelotnBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use VelotnBundle\Entity\Produits;
 use VelotnBundle\Entity\User;
 use VelotnBundle\Entity\Wishlist;
@@ -22,17 +23,17 @@ class WishlistController extends Controller{
         $product = $em->getRepository(Produits::class)->find($request->request->get("idProduct"));
         $u = $em->getRepository(User::class)->find($user);
 
-        $p= new Produits();
+        /*$p= new Produits();
 
         $p->setId($product->getId());
         $p->setNomprod($product->getNomprod());
         $p->setDescription($product->getDescription());
         $p->setPrix($product->getPrix());
         $p->setQuantite($product->getQuantite());
-        $p->setImgUrl($product->getImgUrl());
+        $p->setImgUrl($product->getImgUrl());*/
 
         $wishlist = new Wishlist();
-        $wishlist->setProduit($p);
+        $wishlist->setProduit($product);
         $wishlist->setUser($u);
 
         $em->persist($wishlist);
