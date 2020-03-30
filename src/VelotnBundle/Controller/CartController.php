@@ -29,6 +29,7 @@ class CartController extends Controller{
         if($exist && ($exist->getUser()==$user))
         {
             $exist->setQte($exist->getQte()+1);
+            $exist->setPrixTotal($exist->getQte()*$exist->getPrixUnitaire());
             $em->flush();
             return new JsonResponse();
         }
@@ -83,5 +84,17 @@ class CartController extends Controller{
         ));
 
     }
+
+    /**
+     * @Route("/SupprimerPanier",name="supprimerPanier")
+     * @param Request $request
+     * @return JsonResponse
+     */
+
+    public function supprimerPanierAction(Request $request){
+
+    }
+
+
 
 }
