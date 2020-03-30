@@ -45,21 +45,30 @@ class Location
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_produit", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="VelotnBundle\Entity\Produits")
+     * @ORM\JoinColumns({
+     *  @ORM\JoinColumn(name="id_produit",referencedColumnName="id")
+     * })
      */
     private $idProduit;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_user", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="VelotnBundle\Entity\User")
+     * @ORM\JoinColumns({
+     * @ORM\JoinColumn(name="id_user",referencedColumnName="id")
+     *})
      */
     private $idUser;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="id_promo", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="VelotnBundle\Entity\Promotion")
+     * @ORM\JoinColumns({
+     * @ORM\JoinColumn(name="id_promo",referencedColumnName="id")
+     *})
      */
     private $idPromo;
 

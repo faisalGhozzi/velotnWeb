@@ -67,6 +67,7 @@ class CartController extends Controller{
             'cart' => $cart,
             'produits'=>$produits
         ));
+
     }
 
 }

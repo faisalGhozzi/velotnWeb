@@ -118,5 +118,24 @@ class PromotionController extends Controller
         }
     }
 
+    /**
+     * @Route("/mail",name="mail")
+     * @return void
+     */
+    public function mailAction()
+    {
+        $message = (new \Swift_Message('Hello Email'))
+            ->setFrom('khalil.bouchnek@esprit.tn')
+            ->setTo('omar.trabelsi.1@esprit.tn')
+            ->setBody(
+                "TEST"
+            );
+
+        $this->get('mailer')->send($message);
+
+
+    }
+
+
 
 }
