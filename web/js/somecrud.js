@@ -84,3 +84,12 @@ function ModifierPanier(id){
         }
     });
 }
+
+$(document).ready(function () {
+    let qte = document.getElementsByClassName('qte');
+    $.each(qte, function () {
+        $(this).on('change', function () {
+            ModifierPanier($(this).val())
+        });
+    });
+})
