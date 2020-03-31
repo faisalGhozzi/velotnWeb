@@ -33,15 +33,17 @@ class DonController extends Controller
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
-        $ids=array();
+        $wish = $em->getRepository('VelotnBundle:Wishlist')->findByUser($user);
+        /*$ids=array();
         foreach ($cart as $item)
         {
             array_push($ids,($item->getProduit()->getId()));
-        }
+        }*/
 
         return $this->render('@Velotn/Front/don.html.twig', array(
             'form' => $form->createView(),
-            'cart' => $cart
+            'cart' => $cart,
+            'wish' => $wish
         ));
     }
     /**

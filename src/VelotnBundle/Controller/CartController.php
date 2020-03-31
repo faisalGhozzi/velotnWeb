@@ -68,19 +68,21 @@ class CartController extends Controller{
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
-        $ids=array();
+        $wish = $em->getRepository('VelotnBundle:Wishlist')->findByUser($user);
+        /*$ids=array();
         foreach ($cart as $item)
         {
            array_push($ids,($item->getProduit()->getId()));
-        }
+        }*/
 
-        $produits = $em->getRepository('VelotnBundle:Produits')->findBy(['id'=>$ids]);
+        //$produits = $em->getRepository('VelotnBundle:Produits')->findBy(['id'=>$ids]);
 
 
         dump($cart);
         return $this->render('@Velotn/Front/shopping-cart.html.twig',array(
             'cart' => $cart,
-            'produits'=>$produits,
+            //'produits'=>$produits,
+            'wish' => $wish,
         ));
 
     }

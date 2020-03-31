@@ -55,15 +55,17 @@ public function AjouterLocationAction(Request $request)
         $produitsLocation= $this->getDoctrine()->getRepository(ProduitsLocation::class)->findAllProductsLocation();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
-        $ids=array();
+        $wish = $em->getRepository('VelotnBundle:Wishlist')->findByUser($user);
+        /*$ids=array();
         foreach ($cart as $item)
         {
             array_push($ids,($item->getProduit()->getId()));
-        }
+        }*/
         return $this->render('@Velotn/Front/listelocation.html.twig', array(
             'locations'=>$locations,
             'produits'=>$produitsLocation,
-            'cart' => $cart
+            'cart' => $cart,
+            'wish' => $wish
         ));
     }
 

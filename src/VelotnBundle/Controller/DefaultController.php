@@ -41,13 +41,15 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
-        $ids=array();
+        $wish = $em->getRepository('VelotnBundle:Wishlist')->findByUser($user);
+        /*$ids=array();
         foreach ($cart as $item)
         {
             array_push($ids,($item->getProduit()->getId()));
-        }
+        }*/
         return $this->render('@Velotn/Front/index.html.twig',array(
-            'cart'=>$cart
+            'cart'=>$cart,
+            'wish'=>$wish
         ));
     }
 

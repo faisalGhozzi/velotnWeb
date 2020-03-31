@@ -32,15 +32,17 @@ class ProductController extends Controller
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
-        $ids=array();
+        $wish = $em->getRepository('VelotnBundle:Wishlist')->findByUser($user);
+        /*$ids=array();
         foreach ($cart as $item)
         {
             array_push($ids,($item->getProduit()->getId()));
-        }
+        }*/
 
         return $this->render('@Velotn/Front/shop.html.twig', array(
             'products' => $products,
-            'cart' => $cart
+            'cart' => $cart,
+            'wish' => $wish
         ));
     }
 
@@ -56,15 +58,17 @@ class ProductController extends Controller
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
-        $ids=array();
+        $wish = $em->getRepository('VelotnBundle:Wishlist')->findByUser($user);
+        /*$ids=array();
         foreach ($cart as $item)
         {
             array_push($ids,($item->getProduit()->getId()));
-        }
+        }*/
 
         return $this->render('@Velotn/Front/rent.html.twig', array(
             'products' => $products,
-            'cart' => $cart
+            'cart' => $cart,
+            'wish' => $wish
         ));
     }
 
@@ -75,9 +79,14 @@ class ProductController extends Controller
         $myId = $this->get('nzo_url_encryptor')->decrypt($prod);
         $em = $this->getDoctrine()->getManager();
         $produit = $em->getRepository("VelotnBundle:ProduitsLocation")->find($myId);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
+        $wish = $em->getRepository('VelotnBundle:Wishlist')->findByUser($user);
 
         return $this->render('@Velotn/Front/rentproduct.html.twig',array(
-            'produit' => $produit
+            'produit' => $produit,
+            'cart' => $cart,
+            'wish' => $wish
         ));
     }
 
@@ -92,9 +101,14 @@ class ProductController extends Controller
             $produit = $em->getRepository("VelotnBundle:Piecesrechanges")->find($myId);
         if($produit == null)
             $produit = $em->getRepository("VelotnBundle:Accessoires")->find($myId);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
+        $wish = $em->getRepository('VelotnBundle:Wishlist')->findByUser($user);
 
         return $this->render('@Velotn/Front/buyproduct.html.twig',array(
-            'produit' => $produit
+            'produit' => $produit,
+            'cart' => $cart,
+            'wish' => $wish
         ));
     }
 
