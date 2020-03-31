@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="fos_user_user_show">
+        <section class="product-shop spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+                        <div class="filter-widget">
+                            <h4 class="fw-title">Profile options</h4>
+                            <ul class="filter-catagories">
+                                <li><a href="{{ path('fos_user_profile_edit') }}">Modify Profile</a></li>
+                                <li><a href="#">Delete Account</a></li>
+                                <li><a href="{{ path('location') }}">Mes Locations </a></li>
+                                <li><a href="{{ path('Reclamation') }}">Mes Reclamations </a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 order-1 order-lg-2">
+                        <div class="product-show-option">
+                            <div class="row">
+                                <div class="col-lg-7 col-md-7">
+                                    <div class="select-option">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-list" style="width: 3000px">
+                            <div class="row">
+                                <div class="col-lg-4 col-sm-6">
+
+                                    <div class="box-body table-responsive bs-example widget-shadow">
+                                        <div class="title"><h3>Mes reclamations</h3></div>
+                                        <table id="example2" class="table table-bordered table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>Description Reclamation</th>
+                                                <th>Etat</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for rec in reclamations %}
+                                                <tr>
+                                                    <td>{{ rec.descriptionr }}</td>
+                                                    {% if rec.etat==false %}
+                                                        <td><a class="btn btn-danger">Non Traite</a></td>
+                                                    {% else %}
+                                                        <td><a class="btn btn-success">Traite</a></td>
+                                                    {% endif %}
+                                                    <td>
+                                                        <a href="{{ path('deleteReclamationFront',{'id': rec.id}) }}" class="btn btn-danger">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="">
+                                        <br><hr>
+                                        <div class="title "><h3>Ajouter Reclamation</h3></div>
+                                        {% form_theme f 'bootstrap_4_layout.html.twig' %}
+                                        {{ form_start(f) }}
+                                        {{ form_widget(f) }}
+                                        {{ form_end(f) }}
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+
+{% endblock %}

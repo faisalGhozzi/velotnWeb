@@ -23,6 +23,23 @@ class EvenementController extends Controller
     }
 
     /**
+     * @Route("/Evenements",name="afficherEventFront")
+     */
+    public Function IndexFrontAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $events= $em->getRepository('VelotnBundle:Evenement')->findAll();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
+        $wish = $em->getRepository('VelotnBundle:Wishlist')->findByUser($user);
+        return $this->render('@Velotn/Front/events.html.twig',array(
+            'events'=>$events,
+            'cart'=>$cart,
+            'wish'=>$wish
+        ));
+    }
+
+    /**
      * @Route("/admin/DeleteEvent/{id}",name="deleteEvent")
      */
     public Function DeleteAction($id)

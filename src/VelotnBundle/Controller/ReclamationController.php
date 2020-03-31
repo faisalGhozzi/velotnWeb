@@ -13,24 +13,36 @@ use VelotnBundle\Form\ReclamationType;
 class ReclamationController extends Controller
 {
     /**
-     * @Route("/admin/AjouterReclamation",name="AjouterReclamation")
+     * @Route("/Reclamation",name="Reclamation")
      * @param Request $request
      * @return Response
      */
     public Function NewAction(Request $request)
     {
+        $em=$this->getDoctrine()->getManager();
         $reclamation = new Reclamation();
         $form = $this->createForm(ReclamationType::class,$reclamation);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $reclamations=$em->getRepository('VelotnBundle:Reclamation')->findBy(['iduser'=>$user]);
+        $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
+        $wish = $em->getRepository('VelotnBundle:Wishlist')->findByUser($user);
         $form->handleRequest($request);
         if ($form->isValid() && $form->isSubmitted())
         {
-            $em= $this->getDoctrine()->getManager();
+
+            $reclamation->setEtat(false);
+            $reclamation->setIduser($user);
             $em->persist($reclamation);
             $em->flush();
 
-            $this->redirectToRoute("afficherReclamation");
+            return $this->redirectToRoute("Reclamation");
         }
-        return $this->render("@Velotn/Back/Reclamation/new.html.twig",array('f'=>$form->createView()));
+        return $this->render("@Velotn/Front/reclamation.html.twig",array(
+            'f'=>$form->createView(),
+            'reclamations'=>$reclamations,
+            'cart'=>$cart,
+            'wish'=>$wish
+        ));
 
     }
     /**
@@ -40,7 +52,6 @@ class ReclamationController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $reclamation=$em->getRepository('VelotnBundle:Reclamation')->findAll();
-        dump($reclamation);
         return $this->render('@Velotn/Back/Reclamation/index.html.twig',array('r'=>$reclamation));
     }
     /**
@@ -53,6 +64,17 @@ class ReclamationController extends Controller
         $em->remove($reclamation);
         $em->flush();
         return $this->redirectToRoute('afficherReclamation');
+    }
+    /**
+     * @Route("/Reclamation/DeleteR/{id}",name="deleteReclamationFront")
+     */
+    public Function DeleteFrontAction($id)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $reclamation=$em->getRepository(Reclamation::class)->find($id);
+        $em->remove($reclamation);
+        $em->flush();
+        return $this->redirectToRoute('Reclamation');
     }
 
     /**
