@@ -1,0 +1,17 @@
+{% extends 'back.html.twig' %}
+{% block body %}
+    <br><br>
+    <h1>Reclamation</h1>
+    {% form_theme f 'bootstrap_4_layout.html.twig' %}
+    {{ form_start(f) }}
+    {{ form_widget(f) }}
+    <input class="btn btn-custon-four btn-primary" type="submit" value="Create" />
+    {{ form_end(f) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('afficherReclamation') }}">Back to index</a>
+        </li>
+    </ul>
+
+{% endblock %}

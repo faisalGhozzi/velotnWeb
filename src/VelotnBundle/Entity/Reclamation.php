@@ -36,7 +36,7 @@ class Reclamation
     private $etat;
 
     /**
-     * @var \FosUser
+     * @var User
      *
      * @ORM\ManyToOne(targetEntity="VelotnBundle\Entity\User")
      * @ORM\JoinColumns({
@@ -44,6 +44,73 @@ class Reclamation
      * })
      */
     private $iduser;
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescriptionr()
+    {
+        return $this->descriptionr;
+    }
+
+    /**
+     * @param string $descriptionr
+     */
+    public function setDescriptionr($descriptionr)
+    {
+        $this->descriptionr = $descriptionr;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * @param bool $etat
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+    }
+
+    /**
+     * @return User
+     */
+    public function getIduser()
+    {
+        return $this->iduser;
+    }
+
+    /**
+     * @param User $iduser
+     */
+    public function setIduser($iduser)
+    {
+        $this->iduser = $iduser;
+    }
+
+
+
 
 
 }

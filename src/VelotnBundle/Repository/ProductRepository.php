@@ -2,6 +2,8 @@
 namespace VelotnBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 
 class   ProductRepository extends EntityRepository{
 
@@ -22,6 +24,7 @@ class   ProductRepository extends EntityRepository{
             ->getQuery()
             ->execute();
     }
+
 
 
 
