@@ -2,6 +2,8 @@
 
 namespace VelotnBundle\Controller;
 
+use Nexmo\Client;
+use Nexmo\Client\Credentials\Basic;
 use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -41,11 +43,13 @@ class PromotionController extends Controller
     }
 
 
-
     /**
      * @Route("/admin/AjouterPromo",name="AjouterPromo")
      * @param Request $request
      * @return RedirectResponse|Response
+     * @throws Client\Exception\Exception
+     * @throws Client\Exception\Request
+     * @throws Client\Exception\Server
      */
 
     public function AjouterPromoAction(Request $request)
@@ -59,7 +63,16 @@ class PromotionController extends Controller
             $em= $this->getDoctrine()->getManager();
             $em->persist($promo);
             $em->flush();
+            $basic  = new Basic('bedc050f', 'B1Jo6yVQB19C3q9F');
+            $client = new Client($basic);
+
+            $message = $client->message()->send([
+                'to' => '21652413967',
+                'from' => 'Vonage SMS API',
+                'text' => 'Voici le code Promo : '.$promo->getType().' De pourcentage : '.$promo->getTaux().'%'
+            ]);
             return $this->redirectToRoute('promotion');
+
         }
 
         return $this->render('@Velotn/Back/Promotion/ajouterPromo.html.twig',array(
@@ -135,6 +148,7 @@ class PromotionController extends Controller
 
 
     }
+
 
 
 
