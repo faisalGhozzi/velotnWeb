@@ -67,7 +67,7 @@ class PromotionController extends Controller
             $client = new Client($basic);
 
             $message = $client->message()->send([
-                'to' => '21652413967',
+                'to' => '21624030600',
                 'from' => 'Vonage SMS API',
                 'text' => 'Voici le code Promo : '.$promo->getType().' De pourcentage : '.$promo->getTaux().'%'
             ]);

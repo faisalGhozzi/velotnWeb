@@ -67,3 +67,20 @@ function SupprimerWishlist(id) {
         }
     });
 }
+
+function ModifierPanier(id){
+    var qte = $("#quantity"+id).val();
+    $.ajax({
+        url:"/ModifierPanier/"+id+"&uqte="+qte,
+        method: "POST",
+        dataType: "JSON",
+        data:{idPanier:id,qtePanier:qte},
+        async:true,
+        success: function (data,status) {
+
+        },
+        error: function (xhr, textStatus, errorThrown) {
+
+        }
+    });
+}

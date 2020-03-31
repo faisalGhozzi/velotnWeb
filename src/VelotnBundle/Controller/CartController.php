@@ -103,6 +103,23 @@ class CartController extends Controller{
         return new JsonResponse();
     }
 
+    /**
+     * @Route("/ModifierPanier/{id}{qte}",name="modifierPanier")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function ModifierPanierAction($id,$qte)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $cart = $em->getRepository(Panier::class)->findBy($id);
+
+        $cart->setQte($qte);
+        $cart->setPrixTotal($cart->getPrixUnitaire()*$qte);
+        $em->flush();
+        return new JsonResponse();
+
+    }
+
 
 
 }
