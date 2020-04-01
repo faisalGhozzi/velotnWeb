@@ -3,6 +3,7 @@
 namespace VelotnBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Evenement
@@ -25,6 +26,8 @@ class Evenement
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=50, nullable=false)
+     * @Assert\Length(min="1",minMessage="minimum 1 caractére",max="30",maxMessage="vous avez dépassé 30 caractéres")
+     * @Assert\NotBlank(message="il faut remplir le champ")
      */
     private $nom;
 
@@ -46,6 +49,8 @@ class Evenement
      * @var string
      *
      * @ORM\Column(name="description", type="text", length=65535, nullable=false)
+     * @Assert\Length(min="1",minMessage="minimum 1 caractère")
+     * @Assert\NotBlank(message="il faut remplir le champ")
      */
     private $description;
 

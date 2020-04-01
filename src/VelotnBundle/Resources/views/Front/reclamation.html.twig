@@ -61,7 +61,7 @@
                                         <br><hr>
                                         <div class="title "><h3>Ajouter Reclamation</h3></div>
                                         {% form_theme f 'bootstrap_4_layout.html.twig' %}
-                                        {{ form_start(f) }}
+                                        {{ form_start(f,{'attr':{'novalidate':'novalidate'}}) }}
                                         {{ form_widget(f) }}
                                         {{ form_end(f) }}
                                     </div>

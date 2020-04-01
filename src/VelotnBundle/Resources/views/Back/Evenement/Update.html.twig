@@ -304,7 +304,7 @@
                 <br><br>
                 <h1>Evenement</h1>
                 {% form_theme f 'bootstrap_4_layout.html.twig' %}
-                {{ form_start(f) }}
+                {{ form_start(f,{'attr':{'novalidate':'novalidate'}}) }}
                 {{ form_widget(f) }}
 
                 {{ form_end(f) }}

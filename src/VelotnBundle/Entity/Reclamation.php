@@ -3,6 +3,7 @@
 namespace VelotnBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Reclamation
@@ -25,6 +26,8 @@ class Reclamation
      * @var string
      *
      * @ORM\Column(name="descriptionR", type="text", length=65535, nullable=false)
+     * @Assert\Length(min="10",minMessage="Il faut minimum 15 caractères",max="50",maxMessage="Le maximum est 50 caractères")
+     * @Assert\NotBlank(message="Il faut remplir le champ")
      */
     private $descriptionr;
 
