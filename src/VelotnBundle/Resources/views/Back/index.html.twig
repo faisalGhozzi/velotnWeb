@@ -4,93 +4,9 @@
     <div class="main-content">
         <div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
             <!--left-fixed -navigation-->
-            <aside class="sidebar-left">
-                <nav class="navbar navbar-inverse">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".collapse" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <h1><a class="navbar-brand" href="index.html"><span class="fa fa-area-chart"></span> Glance<span class="dashboard_text">Design dashboard</span></a></h1>
-                    </div>
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="sidebar-menu">
-                            <li class="header">MAIN NAVIGATION</li>
-                            <li class="treeview">
-                                <a href="index.html">
-                                    <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
-                                </a>
-                            </li>
-                            {# Start Menu Item #}
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-box"></i>
-                                    <span>Gestion des Produits</span>
-                                    <i class="fas fa-angle-down lnr"></i>
-                                    <div class="clearfix"></div>
-                                </a>
-                                <ul class="dropdown-menu drp-mnu">
-                                    <li><a href="{{ path('AjouterProduit') }}"> Ajouter Produit</a></li>
-                                    <li><a href="{{ path('modifierProduit') }}"> Modifier Produit</a></li>
-                                    <li><a href="{{ path('listeProduits') }}"> Afficher Liste Des Produit</a></li>
-
-                                </ul>
-                            </li>
-
-                            {# End Menu Item #}
-                            {# Start Add Menu Items Promotion  #}
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa fa-percentage"></i>
-                                    <span>Gestion des Promotions</span>
-                                    <i class="fa fa-angle-down lnr"></i>
-                                    <div class="clearfix"></div>
-                                </a>
-                                <ul class="dropdown-menu drp-mnu">
-                                    <li><a href="{{ path('AjouterPromo') }}"> Ajouter Promotion</a></li>
-                                    <li><a href="{{ path('promotion') }}"> Afficher Liste Des Promotions</a></li>
-
-                                </ul>
-                            </li>
-                            {# End Menu Item Promotion #}
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="far fa-calendar-check"></i>
-                                    <span>Gestion des Evenements</span>
-                                    <i class="fas fa-angle-down lnr"></i>
-                                    <div class="clearfix"></div>
-                                </a>
-                                <ul class="dropdown-menu drp-mnu">
-                                    <li><a href="{{ path('AjouterEvenement') }}"> Ajouter Evenement</a></li>
-                                    <li><a href="{{ path('afficherEventBack') }}"> Afficher Liste Des Evenements</a></li>
-
-                                </ul>
-                            </li>
-
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-exclamation-triangle"></i>
-                                    <span>Gestion des Reclamations</span>
-                                    <i class="fas fa-angle-down lnr"></i>
-                                    <div class="clearfix"></div>
-                                </a>
-                                <ul class="dropdown-menu drp-mnu">
-                                    <li><a href="{{ path('afficherReclamation') }}"> Afficher Liste Des Reclamations</a></li>
-
-                                </ul>
-                            </li>
-
-
-
-
-
-                        </ul>
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </nav>
-            </aside>
+            {% block sidebar %}
+                {{ parent() }}
+            {% endblock %}
         </div>
         <!--left-fixed -navigation-->
 
@@ -270,26 +186,7 @@
 
                 <div class="profile_details">
                     <ul>
-                        <li class="dropdown profile_details_drop">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <div class="profile_img">
-                                    <span class="prfil-img"><img src="{{ asset('images/2.jpg') }}" alt=""> </span>
-                                    <div class="user-name">
-                                        <p>Admin Name</p>
-                                        <span>Administrator</span>
-                                    </div>
-                                    <i class="fa fa-angle-down lnr"></i>
-                                    <i class="fa fa-angle-up lnr"></i>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu drp-mnu">
-                                <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-                                <li> <a href="#"><i class="fa fa-user"></i> My Account</a> </li>
-                                <li> <a href="#"><i class="fa fa-suitcase"></i> Profile</a> </li>
-                                <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
-                            </ul>
-                        </li>
+                        {% block admin %}{{ parent() }}{% endblock %}
                     </ul>
                 </div>
                 <div class="clearfix"> </div>

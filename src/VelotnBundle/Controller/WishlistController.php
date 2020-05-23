@@ -5,8 +5,10 @@ namespace VelotnBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use VelotnBundle\Entity\Produits;
 use VelotnBundle\Entity\User;
 use VelotnBundle\Entity\Wishlist;
@@ -83,4 +85,58 @@ class WishlistController extends Controller{
         return new JsonResponse();
     }
 
+    /**
+     * @Route("/wishlistjson/",name="AfficherWishlistJson")
+     */
+
+    public function afficherWishlistJsonAction(){
+        $wishlist = $this->getDoctrine()->getRepository(Wishlist::class)->findAll();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $json = array();
+        foreach ($wishlist as $w){
+            $temp = array(
+                "id" => $w->getId(),
+                "product_id"=>$w->getProduct()->getId(),
+                "user_id"=>$w->getUser()->getId()
+            );
+            array_push($json,$temp);
+        }
+        $formatted = $serializer->normalize($json);
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/wishlistjson/new",name="AjouterWishlistJson")
+     * @param Request $request
+     * @return JsonResponse
+     */
+
+    public function ajouterWishlistJsonAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $wishlist = new Wishlist();
+        $produit = $em->getRepository(Produits::class)->find($request->get("product"));
+        $user = $em->getRepository(User::class)->find($request->get("user"));
+        $wishlist->setProduct($produit);
+        $wishlist->setUser($user);
+        $em->persist($wishlist);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($wishlist);
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/wishlistjson/delete/{id}",name="DeleteWishlistJson")
+     */
+
+    public function deleteWishlistJsonAction($id){
+        $wishlist = $this->getDoctrine()->getManager()
+            ->getRepository('VelotnBundle:Wishlist')
+            ->find($id);
+        $this->getDoctrine()->getManager()->remove($wishlist);
+        $this->getDoctrine()->getManager()->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($wishlist);
+        return new JsonResponse($formatted);
+    }
 }

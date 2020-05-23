@@ -22,7 +22,7 @@ class   ProductRepository extends EntityRepository{
             ->innerJoin("pr.id","j3")
             ->innerJoin("pl.id","j4")
             ->getQuery()
-            ->execute();
+            ->getResult();
     }
 
 

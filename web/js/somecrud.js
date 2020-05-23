@@ -1,3 +1,27 @@
+function takelake(lala){
+    alert(lala);
+}
+
+function takeDon()
+{
+    let x = document.getElementById("sommeadonner").value();
+    alert(x);
+    $.ajax({
+        url: "/confirmpayment",
+        method: "POST",
+        dataType: "JSON",
+        data:{montantDt:montant},
+        async:true,
+        success: function (data,status) {
+
+        },
+        error: function (xhr, textStatus, errorThrown) {
+
+        }
+    });
+
+}
+
 function AjouterPanier(id)
 {
     $.ajax({

@@ -29,14 +29,14 @@ class Panier
     private $qte;
 
     /**
-     * @var string
+     * @var double
      *
      * @ORM\Column(name="prix_unitaire", type="decimal", precision=10, scale=0, nullable=false)
      */
     private $prixUnitaire;
 
     /**
-     * @var string
+     * @var double
      *
      * @ORM\Column(name="prix_total", type="decimal", precision=10, scale=0, nullable=false)
      */
@@ -94,7 +94,7 @@ class Panier
     }
 
     /**
-     * @return string
+     * @return double
      */
     public function getPrixUnitaire()
     {
@@ -102,7 +102,7 @@ class Panier
     }
 
     /**
-     * @param string $prixUnitaire
+     * @param double $prixUnitaire
      */
     public function setPrixUnitaire($prixUnitaire)
     {
@@ -110,7 +110,7 @@ class Panier
     }
 
     /**
-     * @return string
+     * @return double
      */
     public function getPrixTotal()
     {
@@ -118,7 +118,7 @@ class Panier
     }
 
     /**
-     * @param string $prixTotal
+     * @param double $prixTotal
      */
     public function setPrixTotal($prixTotal)
     {

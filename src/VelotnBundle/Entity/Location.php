@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Location
  *
  * @ORM\Table(name="location", indexes={@ORM\Index(name="id_produitFK", columns={"id_produit"}), @ORM\Index(name="id_userFk", columns={"id_user"}),@ORM\Index(name="id_PromoFk", columns={"id_promo"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="VelotnBundle\Repository\LocationRepository")
  */
 class Location
 {

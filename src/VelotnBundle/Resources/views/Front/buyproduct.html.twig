@@ -170,17 +170,20 @@
                             <div class="product-details">
                                 <div class="pd-title">
                                     <span>{{ produit.marque }}</span>
+
                                     <h3>{{ produit.id.nomProd }}</h3>
+
+
                                     <a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
                                 </div>
-                                <div class="pd-rating">
+                                {#<div class="pd-rating">
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star-o"></i>
                                     <span>(5)</span>
-                                </div>
+                                </div>#}
                                 <div class="pd-desc">
                                     <p>{{ produit.id.description }}</p>
                                     <h4>{{ produit.id.prix }} TND <!--span>629.99</span--></h4>
@@ -204,7 +207,7 @@
                                     <a data-toggle="tab" href="#tab-2" role="tab">SPECIFICATIONS</a>
                                 </li>
                                 <li>
-                                    <a data-toggle="tab" href="#tab-3" role="tab">Customer Reviews (02)</a>
+                                    <a id="reviewsBtn" data-toggle="tab" href="#tab-3" role="tab">Customer Reviews ({{ reviews|length }})</a>
                                 </li>
                             </ul>
                         </div>
@@ -291,43 +294,33 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="tab-3" role="tabpanel">
-                                    <div class="customer-review-option">
-                                        <h4>2 Comments</h4>
+                                    <div id="reviewopt" class="customer-review-option">
+                                        <h4>{{ reviews|length }} Comments</h4>
+                                        {% for comment in reviews %}
                                         <div class="comment-option">
                                             <div class="co-item">
                                                 <div class="avatar-pic">
-                                                    <img src="img/product-single/avatar-1.png" alt="">
+                                                    <img src="{{ asset('images/1.jpg')  }}" alt="">
                                                 </div>
                                                 <div class="avatar-text">
                                                     <div class="at-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
+                                                        {% if comment.rate<=5 %}
+                                                            {% for i in range(0,comment.rate-1)  %}
+                                                                <i class="fa fa-star"></i>
+                                                            {% endfor %}
+                                                            {% for i in range(comment.rate-1,3)  %}
+                                                                <i class="fa fa-star-o"></i>
+                                                            {% endfor %}
+                                                        {% endif %}
                                                     </div>
-                                                    <h5>Brandon Kelley <span>27 Aug 2019</span></h5>
-                                                    <div class="at-reply">Nice !</div>
+                                                    <h5>{{ comment.user.username }} <span>{{ comment.date|date('d-M-Y') }}</span></h5>
+                                                    <div class="at-reply">{{ comment.comment }}</div>
                                                 </div>
                                             </div>
-                                            <div class="co-item">
-                                                <div class="avatar-pic">
-                                                    <img src="img/product-single/avatar-2.png" alt="">
-                                                </div>
-                                                <div class="avatar-text">
-                                                    <div class="at-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </div>
-                                                    <h5>Roy Banks <span>27 Aug 2019</span></h5>
-                                                    <div class="at-reply">Nice !</div>
-                                                </div>
-                                            </div>
+
                                         </div>
-                                        <div class="personal-rating">
+                                        {% endfor %}
+                                        {#<div class="personal-rating">
                                             <h6>Your Ratind</h6>
                                             <div class="rating">
                                                 <i class="fa fa-star"></i>
@@ -336,20 +329,28 @@
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star-o"></i>
                                             </div>
-                                        </div>
+                                        </div>#}
                                         <div class="leave-comment">
                                             <h4>Leave A Comment</h4>
-                                            <form action="#" class="comment-form">
+                                            <form action="#" class="comment-form ">
                                                 <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <input type="text" placeholder="Name">
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" placeholder="Email">
+                                                    <div class="col-lg-6 " style="display: flex; margin-right: 5px;">
+                                                        <label for="rate">Rating:  </label>
+                                                        <select id="rate" name="rate" style="width: 50%; margin-left: 10px;" class="browser-default custom-select">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                        </select>
+                                                        <div class="rating" id="rating" style="margin-left: 50px; flex-grow: 1;">
+
+                                                        </div>
                                                     </div>
                                                     <div class="col-lg-12">
-                                                        <textarea placeholder="Messages"></textarea>
-                                                        <button type="submit" class="site-btn">Send message</button>
+                                                        <textarea placeholder="Comments" id="comments" name="comments"></textarea>
+                                                        <input id="idProduit" value="{{ produit.id.id }}" hidden>
+                                                        <button type="button" id="send-comment" class="site-btn">Send Comment</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -364,4 +365,92 @@
         </div>
     </section>
     <!-- Product Shop Section End -->
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    <script>
+
+        let rate = document.getElementById('rate');
+        let comment = document.getElementById('comments');
+        let idProduit = document.getElementById('idProduit');
+
+        let rating= document.getElementById('rating');
+
+        function ratingtext(rate)
+        {
+            let text="";
+            for (let i = 0; i <rate ; i++) {
+                text+="<i class='fa fa-star'></i>";
+            }
+            for (let i = rate-1; i <4 ; i++) {
+                text+="<i class='fa fa-star-o'></i>";
+            }
+            return text;
+        }
+
+        $(document).ready(function () {
+
+
+            $('.co-item').each(function (index) {
+                $(this).delay(400*index).fadeOut();
+            });
+
+            rating.innerHTML=("<i class='fa fa-star'></i>");
+            for (let i = rate.value-1; i <4 ; i++) {
+                $('#rating').append($("<i class='fa fa-star-o'></i>"));
+            }
+
+            $('#reviewsBtn').on('click',function () {
+                $('.co-item').each(function (index) {
+                    $(this).delay(400*index).fadeIn(600);
+                });
+            });
+
+            $('#send-comment').on("click",function () {
+                $.ajax({
+                    url:"/AddReview",
+                    method:"POST",
+                    dataType:"JSON",
+                    data:{rate:rate.value,comment:comment.value,produit:idProduit.value},
+                    async:true,
+                    success: function (data,status) {
+
+                        rate.value=1;
+                        comment.value="";
+                        rating.innerHTML=("<i class='fa fa-star'></i>");
+                        for (let i = rate.value-1; i <4 ; i++) {
+                            $('#rating').append($("<i class='fa fa-star-o'></i>"));
+                        }
+                        $('.comment-option:last').append('<div class="co-item"><div class="avatar-pic"><img src="{{ asset('images/1.jpg')  }}" alt=""> </div> <div class="avatar-text"> <div class="at-rating">'+ratingtext(data['rate'])+'</div> <h5>'+data['username']+'<span>'+data['date']+'</span></h5> <div class="at-reply">'+data['comment']+'</div> </div> </div>');
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+
+                    }
+
+
+
+                });
+            });
+
+        });
+        $('#rate').on('change',function () {
+            rating.innerHTML="";
+            if(rate.value<=5)
+            {
+                for (let i = 0; i <rate.value ; i++) {
+                    $('#rating').append($("<i class='fa fa-star'></i>"));
+
+                }
+                for (let i = rate.value-1; i <4 ; i++) {
+                    $('#rating').append($("<i class='fa fa-star-o'></i>"));
+                }
+            }
+
+
+
+        });
+
+
+
+
+
+    </script>
 {% endblock %}

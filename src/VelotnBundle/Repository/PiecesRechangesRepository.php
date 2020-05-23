@@ -13,7 +13,7 @@ class PiecesRechangesRepository extends EntityRepository
             ->from("VelotnBundle:Piecesrechanges","piecer")
             ->innerJoin("piecer.id","pr")
             ->getQuery()
-            ->execute();
+            ->getResult();
 
     }
 

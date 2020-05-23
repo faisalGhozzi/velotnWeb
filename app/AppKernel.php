@@ -19,6 +19,8 @@ class AppKernel extends Kernel
 
             new FOS\UserBundle\FOSUserBundle(),
             new Nzo\UrlEncryptorBundle\NzoUrlEncryptorBundle(),
+            new CalendarBundle\CalendarBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new AppBundle\AppBundle(),
             new VelotnBundle\VelotnBundle(),
         ];

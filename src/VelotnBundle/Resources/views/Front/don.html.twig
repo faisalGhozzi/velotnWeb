@@ -7,17 +7,25 @@
                 <div class="col-lg-6 offset-lg-3">
                     <div class="register-form">
                         <h2>Donate</h2>
-                        {{ form_start(form) }}
+                        {{ form_start(form, {'action': path('cardinfos')}) }}
                         <div class="group-input">
                             <label for="donation">Sum to donate *</label>
-                            <!--input type="text" id="username"-->
                             {{ form_widget(form.somme) }}
                         </div>
-                        {{ form_widget(form.submit) }}
+                        {{ form_widget(form.submit,{'attr':{'onClick':'takeDon()'}}) }}
                         {{ form_end(form) }}
+
+                        <!--div class="group-input">
+                            <label for="donation">Sum to donate *</label>
+                            <input type="text" id="sommeadonner">
+                        </div>
+                        <div class="group-input">
+                            <a href="{{ path('cardinfos') }}" class="site-btn register-btn" onclick="takeDon()">Donate</a>
+                        </div-->
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 {% endblock %}

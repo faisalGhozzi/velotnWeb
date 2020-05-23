@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="VelotnBundle\Repository\VelosRepository")
  */
-class Velos
+class Velos implements \ArrayAccess
 {
     /**
      * @var string
@@ -88,5 +88,36 @@ class Velos
     }
 
 
+    /**
+     * @inheritDoc
+     */
+    public function offsetExists($offset)
+    {
+        // TODO: Implement offsetExists() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetGet($offset)
+    {
+        // TODO: Implement offsetGet() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetSet($offset, $value)
+    {
+        // TODO: Implement offsetSet() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetUnset($offset)
+    {
+        // TODO: Implement offsetUnset() method.
+    }
 }
 

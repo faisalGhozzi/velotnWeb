@@ -4,10 +4,12 @@ namespace VelotnBundle\Controller;
 
 use Doctrine\ORM\Query\Expr\Select;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use VelotnBundle\Entity\Accessoires;
 use VelotnBundle\Entity\Piecesrechanges;
 use VelotnBundle\Entity\Produits;
@@ -38,9 +40,10 @@ class ProductController extends Controller
         {
             array_push($ids,($item->getProduit()->getId()));
         }*/
-
         return $this->render('@Velotn/Front/shop.html.twig', array(
-            'products' => $products,
+            'velos' => $velos,
+            'accessoires' => $accessoires,
+            'piecesrechanges' => $piecesrechanges,
             'cart' => $cart,
             'wish' => $wish
         ));
@@ -59,14 +62,9 @@ class ProductController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
         $wish = $em->getRepository('VelotnBundle:Wishlist')->findByUser($user);
-        /*$ids=array();
-        foreach ($cart as $item)
-        {
-            array_push($ids,($item->getProduit()->getId()));
-        }*/
-
+        dump($products);
         return $this->render('@Velotn/Front/rent.html.twig', array(
-            'products' => $products,
+            'products' => $productsLocation,
             'cart' => $cart,
             'wish' => $wish
         ));
@@ -104,9 +102,12 @@ class ProductController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
         $wish = $em->getRepository('VelotnBundle:Wishlist')->findByUser($user);
+        $reviews = $em->getRepository('VelotnBundle:Review')->findBy(['produit'=>$myId]);
+
 
         return $this->render('@Velotn/Front/buyproduct.html.twig',array(
             'produit' => $produit,
+            'reviews'=>$reviews,
             'cart' => $cart,
             'wish' => $wish
         ));
@@ -404,5 +405,49 @@ class ProductController extends Controller
 
         return new JsonResponse($product);
 
+    }
+
+    /**
+     *
+     * @Route("/Products/",name="ProductsJson")
+     */
+    public function ProductsJsonAction()
+    {
+        $products = $this->getDoctrine()->getManager()
+            ->getRepository('VelotnBundle:Produits')
+            ->findAll();
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($products);
+        return new JsonResponse($formatted);
+    }
+    /**
+     *
+     * @Route("/Products/{id}",name="findProductJson")
+     */
+    public function findProductJsonAction($id)
+    {
+        $products = $this->getDoctrine()->getManager()
+            ->getRepository('VelotnBundle:Produits')
+            ->find($id);
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($products);
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     *
+     * @Route("/DeleteProduct/{id}",name="deleteProductJson")
+     */
+    public function deleteProductJsonAction($id)
+    {
+        $product = $this->getDoctrine()->getManager()
+            ->getRepository('VelotnBundle:Produits')
+            ->find($id);
+        $this->getDoctrine()->getManager()->remove($product);
+        $this->getDoctrine()->getManager()->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($product);
+        return new JsonResponse($formatted);
     }
 }

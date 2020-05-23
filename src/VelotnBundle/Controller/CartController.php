@@ -5,7 +5,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Routing\Annotation\Route;
 use VelotnBundle\Entity\Panier;
 use VelotnBundle\Entity\Produits;
 use VelotnBundle\Entity\User;
@@ -118,6 +120,62 @@ class CartController extends Controller{
         $em->flush();
         return new JsonResponse();
 
+    }
+
+    /**
+     * @Route("/panierjson/",name="AfficherPanierJson")
+     */
+
+    public function afficherPanierJsonAction(){
+        $panier = $this->getDoctrine()->getRepository(Panier::class)->findAll();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $json = array();
+        foreach($panier as $p){
+            $temp = array(
+                "id" => $p->getId(),
+                "qte" => $p->getQte(),
+                "prix_unitaire" => $p->getPrixUnitaire(),
+                "prix_total" => $p->getPrixTotal(),
+                "produit_id" => $p->getProduit()->getId(),
+                "user_id" => $p->getUser()->getId()
+            );
+            array_push($json,$temp);
+        }
+        $formatted = $serializer->normalize($json);
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/panierjson/new",name="AjouterPanierJson")
+     * @param Request $request
+     */
+    public function ajouterPanierJsonAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $panier = new Panier();
+        $produit = $em->getRepository(Produits::class)->find($request->get('product'));
+        $user = $em->getRepository(User::class)->find($request->get("user"));
+        $panier->setUser($user);
+        $panier->setProduit($produit);
+        $panier->setPrixUnitaire($request->get("prix_unitaire"));
+        $panier->setQte($request->get("qte"));
+        $panier->setPrixTotal($request->get("prix_total"));
+        $em->persist($panier);
+        $em->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($panier);
+        return new JsonResponse($formatted);
+    }
+
+    /**
+     * @Route("/panierjson/delete/{id}",name="SupprimerPanierJson")
+     */
+    public function supprimerPanierJsonAction($id){
+        $panier = $this->getDoctrine()->getManager()->getRepository('VelotnBundle:Panier')->find($id);
+        $this->getDoctrine()->getManager()->remove($panier);
+        $this->getDoctrine()->getManager()->flush();
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($panier);
+        return new JsonResponse($formatted);
     }
 
 

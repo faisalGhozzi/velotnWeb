@@ -52,6 +52,86 @@ class Listprod
      */
     private $command;
 
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
+
+    /**
+     * @param int $product
+     */
+    public function setProduct($product)
+    {
+        $this->product = $product;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQte()
+    {
+        return $this->qte;
+    }
+
+    /**
+     * @param int $qte
+     */
+    public function setQte($qte)
+    {
+        $this->qte = $qte;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrix()
+    {
+        return $this->prix;
+    }
+
+    /**
+     * @param float $prix
+     */
+    public function setPrix($prix)
+    {
+        $this->prix = $prix;
+    }
+
+    /**
+     * @return \Commande
+     */
+    public function getCommand()
+    {
+        return $this->command;
+    }
+
+    /**
+     * @param \Commande $command
+     */
+    public function setCommand($command)
+    {
+        $this->command = $command;
+    }
+
 
 }
 

@@ -14,7 +14,7 @@ class AccessoiresRepository extends EntityRepository
             ->from("VelotnBundle:Accessoires","acc")
             ->innerJoin("acc.id","a")
             ->getQuery()
-            ->execute();
+            ->getResult();
 
     }
 

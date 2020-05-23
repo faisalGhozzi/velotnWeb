@@ -196,6 +196,7 @@
                                     <label for="datef">Date Fin</label>
                                     <input id="datef" name="datef" type="Date" class="form-control" style="width: 50%;"><br>
                                 </div>
+                                    <div><a id="dateError"></a></div>
                                 <div>
                                     {#eswithom bejnab baaadhom code promo merci hahahahhaa#}
                                     <label for="codepromo">Code Promo :</label>
@@ -405,6 +406,8 @@
         let msgPromo = document.getElementById('erreur');
         let idPromo= document.getElementById('idPromo');
         let prixtot= document.getElementById('prixtot');
+        let idProduit = document.getElementById('idProduit');
+        let DateError = document.getElementById('dateError');
 
 
         pJours.innerHTML="0";
@@ -417,11 +420,46 @@
                 let time_diff = df.getTime()-dd.getTime();
                 let days_diff = time_diff / (1000 * 3600 * 24);
 
-                pJours.innerHTML=""+days_diff;
-                prixt.innerHTML=""+parseInt(prix.innerText, 10)*days_diff;
-                prixtot.value=parseInt(prix.innerText, 10)*days_diff;
+                if(dated.value>datef.value)
+                {
+                    pJours.innerHTML="0";
+                    prixt.innerHTML="0";
+
+                }else {
+                    pJours.innerHTML=""+days_diff;
+                    prixt.innerHTML=""+parseInt(prix.innerText, 10)*days_diff;
+                    prixtot.value=parseInt(prix.innerText, 10)*days_diff;
+                }
+
+
+                $.ajax({
+                    url:"/Date",
+                    method:"POST",
+                    dataType:"JSON",
+                    data:{idProduit:idProduit.value,datedeb:dated.value,datefi:datef.value},
+                    async:true,
+                    success: function (data,status) {
+                        if(data['error']==="Date Valide")
+                        {
+
+                            DateError.innerHTML="<a class='btn btn-success'>"+data['error']+"</a>";
+                        }else
+                        {
+
+                            DateError.innerHTML="<a class='btn btn-danger'>"+data['error']+"</a>";
+                        }
+
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                        alert('Erreur AJAX');
+                    }
+                });
+
+
 
             }
+
+
 
         });
 

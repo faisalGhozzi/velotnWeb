@@ -18,13 +18,24 @@ class PromotionController extends Controller
 {
     /**
      * @Route("/admin/Promotion",name="promotion")
+     * @param Request $request
+     * @return Response
      */
-    public function PromotionAction()
+    public function PromotionAction(Request $request)
     {
         $promos = $this->getDoctrine()->getRepository(Promotion::class)->findAll() ;
+        $paginator = $this->get ('knp_paginator');
+        $result = $paginator-> paginate (
+            $promos,
+            $request->query->getInt ('page', 1),
+            $request-> query-> getInt ('limit', 2)
+        );
         return $this->render('@Velotn/Back/Promotion/promotion.html.twig', array(
-            'promos'=>$promos
+            'promos'=>$result
         ));
+
+
+
     }
 
 

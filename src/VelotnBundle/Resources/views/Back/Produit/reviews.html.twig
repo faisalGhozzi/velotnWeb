@@ -1,12 +1,14 @@
 {% extends 'back.html.twig' %}
 
 {% block body %}
+
     <div class="main-content">
         <div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
             <!--left-fixed -navigation-->
             {% block sidebar %}
-                {{ parent() }}
+            {{ parent() }}
             {% endblock %}
+
         </div>
         <!--left-fixed -navigation-->
 
@@ -199,73 +201,40 @@
             <div class="main-page">
 
                 <div class="table-responsive bs-example widget-shadow">
-                        <caption>Liste des Velos</caption>
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-
-                                <th>Nom Produit</th>
-                                <th>Description</th>
-                                <th>Prix</th>
-                                <th>Quantite</th>
-                                <th>Image</th>
-                                <th>Marque</th>
-                                <th>Type</th>
-
-                                <th>Supprimer</th>
-                            </tr>
-
-                            </thead>
-                            <tbody>
-
-                            {% for product in velos %}
-                            <tr>
-                                <td>{{ product.id.nomprod }}</td>
-                                <td>{{ product.id.description }}</td>
-                                <td>{{ product.id.prix }}</td>
-                                <td>{{ product.id.quantite }}</td>
-                                <td><img src="{{ asset(product.id.imgUrl) }}" style="width: 100px;height: 100px;"/></td>
-                                <td>{{ product.marque }}</td>
-                                <td>{{ product.type }}</td>
-
-                                <td><a href="{{ path('supprimerVelo',{'id': product.id.id}) }}" class="btn btn-danger">Supprimer</a></td>
-                            </tr>
-                            {% endfor %}
-
-                            </tbody>
-                        </table>
-                </div>
-
-                <div class="table-responsive bs-example widget-shadow">
-                    <caption>Liste des Velos a Louer</caption>
+                    <script type="text/css">
+                        #ifrm1 {
+                            opacity: 0;
+                            transition: opacity 1.5s linear;
+                        }
+                        #trig1:hover + iframe {
+                            opacity: 1;
+                            transition: opacity 1.5s linear;
+                        }
+                    </script>
+                    <caption>Liste des Commentaires</caption>
                     <table class="table table-bordered">
                         <thead>
                         <tr>
 
-                            <th>Nom Produit</th>
-                            <th>Description</th>
-                            <th>Prix</th>
-                            <th>Quantite</th>
-                            <th>Image</th>
-                            <th>Marque</th>
-                            <th>Type</th>
-
-                            <th>Supprimer</th>
+                            <th class="text-center" style="width: 10%;">Produit</th>
+                            <th class="text-center">Utilisateur</th>
+                            <th class="text-center">Commentaire</th>
+                            <th class="text-center">Rating</th>
+                            <th class="text-center">Date</th>
                         </tr>
 
                         </thead>
                         <tbody>
-                        {% for product in location %}
-                            <tr>
-                                <td>{{ product.id.nomprod }}</td>
-                                <td>{{ product.id.description }}</td>
-                                <td>{{ product.id.prix }}</td>
-                                <td>{{ product.id.quantite }}</td>
-                                <td><img src="{{ asset(product.id.imgUrl) }}" style="width: 100px;height: 100px;"/></td>
-                                <td>{{ product.marque }}</td>
-                                <td>{{ product.type }}</td>
 
-                                <td><a href="{{ path('supprimerVelol',{'id': product.id.id}) }}" class="btn btn-danger">Supprimer</a></td>
+                        {% for review in reviews %}
+                            <tr>
+                                <td class="text-center"><img id="trig1" alt="" src="{{ review.produit.imgUrl }}" style="width: 100%;height: 10%;"></td>
+
+                                <td class="text-center">{{ review.user }}</td>
+                                <td class="text-center">{{ review.comment }}</td>
+                                <td class="text-center">({{ review.rate }})<i class="fa fa-star" style="color: #ffff00"></i></td>
+                                <td class="text-center">{{ review.date|date('d-M-Y') }}</td>
+
                             </tr>
                         {% endfor %}
 
@@ -273,77 +242,7 @@
                     </table>
                 </div>
 
-                <div class="table-responsive bs-example widget-shadow">
-                    <caption>Liste des Accessoires</caption>
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
 
-                            <th>Nom Produit</th>
-                            <th>Description</th>
-                            <th>Prix</th>
-                            <th>Quantite</th>
-                            <th>Image</th>
-                            <th>Marque</th>
-                            <th>Type</th>
-
-                            <th>Supprimer</th>
-                        </tr>
-
-                        </thead>
-                        <tbody>
-                        {% for product in accessoires %}
-                            <tr>
-                                <td>{{ product.id.nomprod }}</td>
-                                <td>{{ product.id.description }}</td>
-                                <td>{{ product.id.prix }}</td>
-                                <td>{{ product.id.quantite }}</td>
-                                <td><img src="{{ asset(product.id.imgUrl) }}" style="width: 100px;height: 100px;"/></td>
-                                <td>{{ product.marque }}</td>
-                                <td>{{ product.type }}</td>
-
-                                <td><a href="{{ path('supprimerAccessoire',{'id': product.id.id}) }}" class="btn btn-danger">Supprimer</a></td>
-                            </tr>
-                        {% endfor %}
-
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="table-responsive bs-example widget-shadow">
-                    <caption>Liste des Pieces de Rechange</caption>
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-
-                            <th>Nom Produit</th>
-                            <th>Description</th>
-                            <th>Prix</th>
-                            <th>Quantite</th>
-                            <th>Image</th>
-                            <th>Marque</th>
-                            <th>Type</th>
-
-                            <th>Supprimer</th>
-                        </tr>
-
-                        </thead>
-                        <tbody>
-                        {% for product in pieces %}
-                            <tr>
-                                <td>{{ product.id.nomprod }}</td>
-                                <td>{{ product.id.description }}</td>
-                                <td>{{ product.id.prix }}</td>
-                                <td>{{ product.id.quantite }}</td>
-                                <td><img src="{{ asset(product.id.imgUrl) }}" style="width: 100px;height: 100px;"/></td>
-                                <td>{{ product.marque }}</td>
-                                <td>{{ product.type }}</td>
-
-                                <td><a href="{{ path('supprimerPieceR', {'id':product.id.id }) }}" class="btn btn-danger">Supprimer</a></td>
-                            </tr>
-                        {% endfor %}
-                        
-                        </tbody>
                     </table>
                 </div>
 

@@ -5,8 +5,8 @@ parameters:
     database_name: velotn
     database_user: root
     database_password: null
-    mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
+    mailer_transport: gmail
+    mailer_host: smtp.google.com
+    mailer_user: velotn.velotn@gmail.com
+    mailer_password: azerty55--
     secret: ThisTokenIsNotSoSecretChangeIt

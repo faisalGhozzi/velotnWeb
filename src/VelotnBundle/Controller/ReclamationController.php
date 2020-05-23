@@ -35,6 +35,18 @@ class ReclamationController extends Controller
             $em->persist($reclamation);
             $em->flush();
 
+            $message = (new \Swift_Message('Velo TN'))
+                ->setFrom('velotn.velotn@gmail.com')
+                ->setTo($this->getUser()->getEmail())
+                ->setDescription('Réclamation')
+                ->setBody('Votre réclamation numéro'.$reclamation->getId().' a été envoyée vous recevrez un mail une fois traitée')
+
+
+            ;
+
+            $this->get('mailer')->send($message);
+
+
             return $this->redirectToRoute("Reclamation");
         }
         return $this->render("@Velotn/Front/reclamation.html.twig",array(

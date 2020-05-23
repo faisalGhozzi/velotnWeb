@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text product-more">
+                        <a href="./home.html"><i class="fa fa-home"></i> Home</a>
+                        <a href="./shop.html">Cart</a>
+                        <span>Order</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+    <!-- Product Shop Section Begin -->
+    <section class="product-shop spad page-details">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <center>
+                            <a href="{{ path('order') }}" class="site-btn login-btn" style="background-color: #32c699 !important; border:none !important;">Confirm Order</a>
+                            <a href="{{ path('shoppingcart') }}" class="site-btn login-btn" style="background-color: #ec5040 !important; border:none !important;">Discard Order</a>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Shop Section End -->
+{% endblock %}

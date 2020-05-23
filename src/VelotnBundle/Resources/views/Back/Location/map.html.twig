@@ -197,52 +197,12 @@
         <!-- main content start-->
         <div id="page-wrapper">
             <div class="main-page">
-                <section class="content">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="box">
-                                <div class="box-header"><center>
-                                        <br></br>
-                                        <h3 class="box-title">Liste des reclamations </h3></center>
-                                </div><!-- /.box-header -->
-                                <div class="box-body table-responsive bs-example widget-shadow">
-                                    <table id="example2" class="table table-bordered table-hover">
-                                        <thead>
-                                        <tr>
+                <iframe id="Frame"
+                        title="Positions Velos"
+                        width="1270"
+                        height="600"
+                        src="http://41.225.183.171:5500/index.html"></iframe>
 
-                                            <th>Description Reclamation</th>
-                                            <th>Etat</th>
-                                            <th>Utilisateur</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for rec in r %}
-                                            <tr>
-                                                <td>{{ rec.descriptionr }}</td>
-                                                {% if rec.etat==false %}
-                                                    <td><a class="btn btn-danger">Non Traite</a></td>
-                                                {% else %}
-                                                    <td><a class="btn btn-success">Traite</a></td>
-                                                {% endif %}
-                                                <td>{{ rec.idUser.username }}</td>
-                                                <td>
-                                                    <a href="{{ path('deleteReclamation',{'id': rec.id}) }}" class="btn btn-danger">Delete</a>
-                                                    {% if rec.etat==false %}
-                                                        <a href="{{ path('UpdateReclamation',{'id':rec.id}) }}" class="btn btn-info">Reclamation traite</a>
-                                                    {% else %}
-                                                        <a href="{{ path('UpdateReclamation',{'id':rec.id}) }}" class="btn btn-info">Reclamation Non traite</a>
-                                                    {% endif %}
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
 
             </div>
         </div>
@@ -256,4 +216,3 @@
 
 
 {% endblock %}
-
