@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text product-more">
+                        <a href="{{ path('index') }}"><i class="fa fa-home"></i> Home</a>
+                        <a href="{{ path('shop') }}">Shop</a>
+                        <span>Shopping Cart</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+    <!-- Shopping Cart Section Begin -->
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="cart-table">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Order number</th>
+                                <th>Date</th>
+                                <th>Price</th>
+                                <th>Details</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for c in commandes %}
+                            <tr>
+                                <td class="cart-title" style="padding-top: 30px;">
+                                    <center>
+                                    <h5>CMD{{ c.user.username|upper }}{{ c.date|date('md') }}{{ c.id }}{{ c.date|date('Y') }}</h5>
+                                    </center>
+                                </td>
+                                <td class="p-price" style="padding-top: 30px;">{{ c.date|date('d/m/Y') }}</td>
+                                <td class="total-price" style="padding-top: 30px;">{{ c.prix }} TND</td>
+                                <td class="close-td" style="padding-top: 30px;">
+                                    <a href="#" onclick="showDetails({{ c.id }})">
+                                        <i class="ti-clipboard"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="cart-table" id="list-prod-table">
+                        <center><h3 style="margin-bottom: 20px" id="order-detail-header">Order Details</h3></center>
+                        <table id="tableP">
+                            <thead>
+                            <tr>
+                                <th class="p-name"><center>Product Name</center></th>
+                                <th><center>Price</center></th>
+                                <th><center>Quantity</center></th>
+                                <th><center>Total</center></th>
+                                </tr>
+                            </thead>
+                            <tbody id="bodyP">
+
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->
+{% endblock %}
+{% block javascripts %}
+    <!--script>
+        function SupprimerPanier(id)
+        {
+            $.ajax({
+                url: "/SupprimerPanier/"+id,
+                method: "POST",
+                dataType: "JSON",
+                data:{idProduct:id},
+                async:true,
+                success: function (data,status) {
+
+                },
+                error: function (xhr, textStatus, errorThrown) {
+
+                }
+            });
+
+        }
+    </script-->
+{% endblock %}

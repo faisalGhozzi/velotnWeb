@@ -6,16 +6,7 @@
             <div class="row">
                 <div class="col-lg-6 offset-lg-3">
                     <div class="register-form">
-                        <form action="{{ path('confirmpayment') }}" method="post" id="payment-form">
-                            <div class="group-input">
-                                <label for="currency">Choose a currency:</label>
-                                <select id="currency-select" class="form-control" name="cur-select">
-                                    <option value="TND" label="Tunisian Dinar (TND)"></option>
-                                    <option value="USD" label="United States Dollar (USD)"></option>
-                                </select>
-                                <label for="donation">Sum to donate *</label>
-                                <input type="text" id="sum" oninput="valid(this)" name="montant">
-                            </div>
+                        <form action="{{ path('confirmpaymentcart') }}" method="post" id="payment-form">
 
                             <label for="card-element">
                                 Credit or debit card
@@ -94,17 +85,5 @@
             form.submit();
         }
 
-    </script>
-    <script>
-
-        var val = document.getElementById("sum").value;
-
-        function valid(elem) {
-            if (new RegExp(/^\d*\.?\d*$/).test(elem.value)) {
-                val = elem.value;
-            } else {
-                elem.value = val;
-            }
-        }
     </script>
 {% endblock %}

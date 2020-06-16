@@ -64,6 +64,56 @@ class CartController extends Controller{
     }
 
     /**
+     * @Route("/AjouterPanierQte",name="ajouterPanierQte")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function AjouterPanierQteAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $product = $em->getRepository(Produits::class)->find($request->request->get("idProduct"));
+        $qte = $request->request->get("qte");
+        $exist = $em->getRepository('VelotnBundle:Panier')->findOneBy(['produit'=>$request->request->get("idProduct")]);
+        $u = $em->getRepository(User::class)->find($user);
+
+
+        if($exist && ($exist->getUser()==$user))
+        {
+            $exist->setQte($exist->getQte()+$qte);
+            $exist->setPrixTotal($exist->getQte()*$exist->getPrixUnitaire());
+            $em->flush();
+            return new JsonResponse();
+        }
+        else
+        {
+
+
+            $p= new Produits();
+
+            $p->setId($product->getId());
+            $p->setNomprod($product->getNomprod());
+            $p->setDescription($product->getDescription());
+            $p->setPrix($product->getPrix());
+            $p->setQuantite($product->getQuantite());
+            $p->setImgUrl($product->getImgUrl());
+
+            $panier = new Panier();
+            $panier->setProduit($product);
+            $panier->setUser($u);
+            $panier->setQte($qte);
+            $panier->setPrixUnitaire($p->getPrix());
+            $panier->setPrixTotal($p->getPrix()*$panier->getQte());
+
+            $em->persist($panier);
+            $em->flush();
+
+            return new JsonResponse();
+        }
+
+    }
+
+    /**
      * @Route("/Cart",name="shoppingcart")
      */
     public function showcartAction(){
@@ -71,14 +121,6 @@ class CartController extends Controller{
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
         $wish = $em->getRepository('VelotnBundle:Wishlist')->findByUser($user);
-        /*$ids=array();
-        foreach ($cart as $item)
-        {
-           array_push($ids,($item->getProduit()->getId()));
-        }*/
-
-        //$produits = $em->getRepository('VelotnBundle:Produits')->findBy(['id'=>$ids]);
-
 
         dump($cart);
         return $this->render('@Velotn/Front/shopping-cart.html.twig',array(
@@ -107,18 +149,32 @@ class CartController extends Controller{
 
     /**
      * @Route("/ModifierPanier/{id}{qte}",name="modifierPanier")
-     * @param Request $request
+     * @param $id
+     * @param $qte
      * @return JsonResponse
      */
     public function ModifierPanierAction($id,$qte)
     {
         $em = $this->getDoctrine()->getManager();
-        $cart = $em->getRepository(Panier::class)->findBy($id);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $cart = $em->getRepository(Panier::class)->find($id);
 
         $cart->setQte($qte);
         $cart->setPrixTotal($cart->getPrixUnitaire()*$qte);
         $em->flush();
-        return new JsonResponse();
+        $usercart = $em->getRepository(Panier::class)->findBy(["user"=>$user]);
+
+        $cartarray = null;
+
+        $totalPrice = 0;
+
+        foreach ($usercart as $item){
+            $totalPrice = $totalPrice + $item->getPrixTotal();
+        }
+
+        $serializer = new Serializer([new ObjectNormalizer()]);
+        $formatted = $serializer->normalize($cart);
+        return new JsonResponse(["cart"=>$formatted,"totalprice"=>$totalPrice]);
 
     }
 
@@ -148,6 +204,7 @@ class CartController extends Controller{
     /**
      * @Route("/panierjson/new",name="AjouterPanierJson")
      * @param Request $request
+     * @return JsonResponse
      */
     public function ajouterPanierJsonAction(Request $request){
         $em = $this->getDoctrine()->getManager();

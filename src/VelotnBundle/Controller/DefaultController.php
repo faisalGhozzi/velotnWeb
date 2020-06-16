@@ -3,7 +3,7 @@
 namespace VelotnBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
@@ -42,11 +42,6 @@ class DefaultController extends Controller
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $cart = $em->getRepository('VelotnBundle:Panier')->findByUser($user);
         $wish = $em->getRepository('VelotnBundle:Wishlist')->findByUser($user);
-        /*$ids=array();
-        foreach ($cart as $item)
-        {
-            array_push($ids,($item->getProduit()->getId()));
-        }*/
         return $this->render('@Velotn/Front/index.html.twig',array(
             'cart'=>$cart,
             'wish'=>$wish

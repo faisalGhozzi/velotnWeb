@@ -22,9 +22,9 @@ class Listprod
     private $id;
 
     /**
-     * @var integer
+     * @var Produits
      *
-     * @ORM\Column(name="product", type="integer", nullable=false)
+     * @ORM\Column(name="produit_id", type="integer", nullable=false)
      */
     private $product;
 
@@ -43,9 +43,9 @@ class Listprod
     private $prix;
 
     /**
-     * @var \Commande
+     * @var Commande
      *
-     * @ORM\ManyToOne(targetEntity="Commande")
+     * @ORM\ManyToOne(targetEntity="VelotnBundle\Entity\Commande")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="command_id", referencedColumnName="id")
      * })
@@ -69,7 +69,7 @@ class Listprod
     }
 
     /**
-     * @return int
+     * @return Produits
      */
     public function getProduct()
     {
@@ -77,7 +77,7 @@ class Listprod
     }
 
     /**
-     * @param int $product
+     * @param Produits $product
      */
     public function setProduct($product)
     {
@@ -117,7 +117,7 @@ class Listprod
     }
 
     /**
-     * @return \Commande
+     * @return Commande
      */
     public function getCommand()
     {
@@ -125,7 +125,7 @@ class Listprod
     }
 
     /**
-     * @param \Commande $command
+     * @param Commande $command
      */
     public function setCommand($command)
     {

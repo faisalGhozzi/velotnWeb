@@ -2,26 +2,6 @@ function takelake(lala){
     alert(lala);
 }
 
-function takeDon()
-{
-    let x = document.getElementById("sommeadonner").value();
-    alert(x);
-    $.ajax({
-        url: "/confirmpayment",
-        method: "POST",
-        dataType: "JSON",
-        data:{montantDt:montant},
-        async:true,
-        success: function (data,status) {
-
-        },
-        error: function (xhr, textStatus, errorThrown) {
-
-        }
-    });
-
-}
-
 function AjouterPanier(id)
 {
     $.ajax({
@@ -37,7 +17,74 @@ function AjouterPanier(id)
 
         }
     });
+}
 
+function AjouterPanierQte(id)
+{
+    var qte = $('#quantityDetails').val();
+    $.ajax({
+        url: "/AjouterPanierQte",
+        method: "POST",
+        dataType: "JSON",
+        data:{idProduct:id,qte:qte},
+        async:true,
+        success: function (data,status) {
+
+        },
+        error: function (xhr, textStatus, errorThrown) {
+
+        }
+    });
+}
+
+function showDetails(id){
+    document.getElementById("tableP").style.visibility="visible";
+    document.getElementById("order-detail-header").style.visibility="visible";
+    let tabdiv = document.getElementById('list-prod-table');
+    let bodyP = document.getElementById("bodyP");
+    bodyP.innerHTML = ''
+
+    $.ajax({
+        url: "/showDetails",
+        method: "POST",
+        dataType: "JSON",
+        data:{idCommande:id},
+        async:true,
+        success: function (data,status) {
+            console.log(data)
+            for(let i in data) {
+                $.ajax({
+                    url: "/getproducts",
+                    method: "POST",
+                    dataType: "JSON",
+                    data: {idProd:data[i].product},
+                    async: true,
+                    success: function (dataP,status) {
+                        console.log(dataP)
+                        bodyP.innerHTML +=
+                            '<tr><td class="cart-title" style="padding-top: 30px;"><h5><center>'+dataP.nomprod+'</center></h5>' +
+                            '</td>' +
+                            '<td class="p-price" style="padding-top: 30px;">' +
+                                dataP.prix+" TND"+
+                            '</td>'+
+                            '<td class="qua-col" style="padding-top: 30px;">' +
+                                data[i].qte+
+                            '</td>' +
+                            '<td class="total-price" style="padding-top: 30px;">' +
+                                parseInt(data[i].qte) * parseInt(dataP.prix)+
+                            '</td></tr>';
+                    },
+                    error: function (xhr, textStatus, errorThrown){
+
+                    }
+                })
+            }
+        },
+        error: function (xhr, textStatus, errorThrown){
+
+        }
+
+    })
 }
 
 function AjouterWishlist(id)
@@ -93,15 +140,23 @@ function SupprimerWishlist(id) {
 }
 
 function ModifierPanier(id){
-    var qte = $("#quantity"+id).val();
+    var qtenew = $("#quantity"+id).val();
+    let spaceprice = document.getElementById("total-price"+id);
+    let spacesub = document.getElementById("subtotal");
+    let spacetotal = document.getElementById("cart-total");
+
+
     $.ajax({
-        url:"/ModifierPanier/"+id+"&uqte="+qte,
+        url:"/ModifierPanier/"+id+"&uqte="+qtenew,
         method: "POST",
         dataType: "JSON",
-        data:{idPanier:id,qtePanier:qte},
+        data:{idPanier:id,qtePanier:qtenew},
         async:true,
         success: function (data,status) {
-
+            console.log(data);
+            spaceprice.innerHTML = data.cart.prixTotal.toString()+' TND';
+            spacesub.innerHTML=data.totalprice;
+            spacetotal.innerHTML=data.totalprice;
         },
         error: function (xhr, textStatus, errorThrown) {
 
@@ -110,10 +165,13 @@ function ModifierPanier(id){
 }
 
 $(document).ready(function () {
-    let qte = document.getElementsByClassName('qte');
+    document.getElementById("tableP").style.visibility="hidden";
+    document.getElementById("order-detail-header").style.visibility="hidden";
+    qte = document.getElementsByClassName('qte');
     $.each(qte, function () {
         $(this).on('change', function () {
             ModifierPanier($(this).val())
         });
     });
 })
+

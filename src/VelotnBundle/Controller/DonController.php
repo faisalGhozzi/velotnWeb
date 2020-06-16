@@ -4,6 +4,7 @@ namespace VelotnBundle\Controller;
 
 use ClassesWithParents\D;
 use DateTime;
+use Stripe\Exception\ApiErrorException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
@@ -101,5 +102,4 @@ class DonController extends Controller
         $formatted = $serializer->normalize($don);
         return new JsonResponse($formatted);
     }
-
 }
